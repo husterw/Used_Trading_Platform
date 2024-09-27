@@ -1,7 +1,13 @@
 # 校园二手交易网络平台
 
-## 开发人员
+## NABCD 模型分析
 
-|  姓名   | 负责内容 |
-| :-----: | :------: |
-| husterw |   前端   |
+### N(Need)
+
+### A(Approach)
+
+### B(Benefit)
+
+### C(Competitors)
+
+### D(Delivery)
