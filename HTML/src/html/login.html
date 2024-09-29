@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <title>
+        华中科技大学二手交易平台
+    </title>
+
+    <link rel="stylesheet" href="..\css\login.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+</head>
+
+<body>
+    <div class="login-container">
+        <div class="login-img"></div>
+        <div class="login-info-container">
+            <div class="login-info">
+                <a href="#" class="password-login">密码登录</a>
+                <a href="#" class="mail-login">邮箱登录</a>
+                <form action="#" class="password-login-form">
+                    <div class="input-box">
+                        <input type=" text" class="info" required>
+                        <label>学号</label>
+                        <i class='bx bxs-user'></i>
+                    </div>
+                    <div class="input-box">
+                        <input type="password" class="info" required>
+                        <label>密码</label>
+                        <i class='bx bxs-lock-alt'></i>
+                    </div>
+
+
+                    <div>
+                        <a href="#" class="forget-password">Forget the password</a>
+                    </div>
+                    <button type="submit" class="login">Login</button>
+                </form>
+                <form action="#" class="mail-login-form">
+                    <div class="input-box">
+                        <input type="email" class="info" required>
+                        <label>邮箱</label>
+                        <i class='bx bxs-envelope'></i>
+                    </div>
+                    <div class="input-box input-box-ver-code">
+                        <input type="text" class="info ver-code-info" required>
+                        <label class="ver-code-label">验证码</label>
+                        <i class='bx bxs-shield-plus ver-code-bx'></i>
+                    </div>
+                    <div>
+                        <a href="#" class="get-ver-code">获取验证码</a>
+                    </div>
+                    <button type="submit" class="login">Login</button>
+                </form>
+                <div class="register-box">
+                    <p>Don't have an account? <a href="#" class="register">Register</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="..\javascript\login.js"></script>
+</body>
+
+</html>
