@@ -74,11 +74,14 @@ body {
   justify-content: center;
   align-items: center;
   border-radius: 0 10px 10px 0;
-  transition: transform 0.5s ease-in-out;
+  transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+  opacity: 1;
+  overflow: hidden;
 }
 
 .login-info-container.fade-out {
   transform: translateX(300px);
+  opacity: 0;
 }
 
 .login-info {
@@ -86,9 +89,12 @@ body {
   height: 500px;
 }
 
+a {
+  text-decoration: none;
+}
+
 .login-info > a {
   font: 900 25px "Arial";
-  text-decoration: none;
   color: grey;
   display: inline-block;
   margin: 20px 5px;
@@ -165,7 +171,6 @@ body {
 .forget-password:hover,
 .register-link:hover,
 .login-link:hover {
-  text-decoration: none;
   color: #0ea4ea;
 }
 
@@ -205,7 +210,7 @@ body {
 .register-box {
   position: relative;
   left: 120px;
-  top: 50px;
+  top: -51%;
 }
 
 .input-box i {
@@ -276,4 +281,26 @@ body {
 .bxs-shield-plus {
   left: -70px !important;
   top: 0 !important;
+}
+
+.password-login-form {
+  transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+  opacity: 1;
+}
+
+.password-login-form.hidden {
+  opacity: 0;
+  transform: translateX(-300px);
+}
+
+.mail-login-form {
+  position: relative;
+  top: -65%;
+  transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+  opacity: 0;
+  transform: translateX(300px);
+}
+.mail-login-form.active {
+  opacity: 1;
+  transform: translateX(0);
 }

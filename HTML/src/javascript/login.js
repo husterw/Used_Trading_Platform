@@ -6,8 +6,8 @@ document.addEventListener("DOMContentLoaded", function () {
   }
   // 初始化只显示密码登录的表单，不显示邮箱登录的表单
   const secondForm = document.querySelector(".mail-login-form");
-  if (secondForm) {
-    secondForm.style.display = "none";
+  if (secondForm && firstForm) {
+    secondForm.classList.remove("active");
   }
 });
 
@@ -19,12 +19,15 @@ document.querySelectorAll(".login-info > a").forEach((link) => {
       .forEach((link) => link.classList.remove("active"));
     this.classList.add("active");
 
+    const firstForm = document.querySelector(".password-login-form");
+    const secondForm = document.querySelector(".mail-login-form");
+
     if (this === document.querySelector(".password-login")) {
-      document.querySelector(".password-login-form").style.display = "block";
-      document.querySelector(".mail-login-form").style.display = "none";
+      firstForm.classList.remove("hidden");
+      secondForm.classList.remove("active");
     } else if (this === document.querySelector(".mail-login")) {
-      document.querySelector(".password-login-form").style.display = "none";
-      document.querySelector(".mail-login-form").style.display = "block";
+      firstForm.classList.add("hidden");
+      secondForm.classList.add("active");
     }
   });
 });
