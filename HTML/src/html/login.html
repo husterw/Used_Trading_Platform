@@ -20,10 +20,10 @@
         <div class="register-info-container">
             <div class="register-info">
                 <h2>注册</h2>
-                <form action="../Server/server.js" method="POST" class="register-form" name="registerForm">
+                <form action="http://localhost:3000/submit" method="POST" class="register-form" name="registerForm">
                     <div class="input-box">
-                        <input type="text" class="info" name="userId" required>
-                        <label>学号</label>
+                        <input type="text" class="info" name="email" required>
+                        <label>邮箱</label>
                         <i class='bx bxs-user'></i>
                     </div>
                     <div class="input-box">
@@ -57,7 +57,7 @@
             <div class="login-info">
                 <a href="#" method="POST" class="password-login">密码登录</a>
                 <a href="#" class="mail-login">邮箱登录</a>
-                <form action="../Server/server.js" method="post" class="password-login-form" name="plf">
+                <form action="http://localhost:3000/submit" method="POST" class="password-login-form" name="plf">
                     <div class="input-box">
                         <input type=" text" class="info" name="userId" required>
                         <label>学号</label>
@@ -68,14 +68,11 @@
                         <label>密码</label>
                         <i class='bx bxs-lock-alt'></i>
                     </div>
-                    <div>
-                        <a href="#" class="forget-password">忘记密码</a>
-                    </div>
                     <button type="submit" class="login">Login</button>
                 </form>
-                <form action="../Server/server.js" method="POST" class="mail-login-form" name="mlf">
+                <form action="http://localhost:3000/submit" method="POST" class="mail-login-form" name="mlf">
                     <div class="input-box">
-                        <input type="email" class="info" name="email" required>
+                        <input type="text" class="info" name="email" required>
                         <label>邮箱</label>
                         <i class='bx bxs-envelope'></i>
                     </div>

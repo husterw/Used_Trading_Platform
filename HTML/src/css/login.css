@@ -143,6 +143,8 @@ a {
   border: 0;
   position: relative;
   left: 140px;
+  width: 75px;
+  text-align: center;
   bottom: 60px;
   display: inline-block;
   outline: 1px solid #777777;
@@ -161,17 +163,6 @@ a {
 .get-ver-code:active {
   background-color: white;
   color: #777777;
-}
-
-.forget-password {
-  float: right;
-  margin: 10px 0;
-}
-
-.forget-password:hover,
-.register-link:hover,
-.login-link:hover {
-  color: #0ea4ea;
 }
 
 .login {
@@ -300,6 +291,7 @@ a {
   opacity: 0;
   transform: translateX(300px);
 }
+
 .mail-login-form.active {
   opacity: 1;
   transform: translateX(0);
