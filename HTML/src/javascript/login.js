@@ -49,31 +49,35 @@ document.querySelector(".login-link").addEventListener("click", function (e) {
     .classList.remove("fade-in");
 });
 
-// 处理登录表单提交
-document
-  .querySelector("form[name='plf']")
-  .addEventListener("submit", function (e) {
-    e.preventDefault();
+// 处理密码登录表单提交
+document.querySelectorAll("form").forEach((form) => {
+  if (form.name === "plf" || form.name === "mlf") {
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
 
-    const form = e.target;
-    const formData = new FormData(form);
+      const Form = e.target;
+      const formData = new FormData(Form);
+      const type = Form.name === "plf" ? "password" : "email";
+      formData.append("type", type);
 
-    fetch(form.action, {
-      method: form.method,
-      body: new URLSearchParams(formData),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.status === "success") {
-          window.location.href = "../html/news.html";
-        } else {
-          alert(data.message);
-        }
+      fetch(Form.action, {
+        method: form.method,
+        body: new URLSearchParams(formData),
       })
-      .catch((err) => {
-        console.error(err);
-      });
-  });
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.status === "success") {
+            window.location.href = "../html/news.html";
+          } else {
+            showAlert(data.message);
+          }
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    });
+  }
+});
 
 // 控制表单切换时的数据存留
 document.querySelectorAll("form").forEach((form) => {
@@ -105,7 +109,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if (regex.test(email)) {
         startCountDowm(link);
       } else {
-        alert("请输入学校邮箱地址：学号@hust.edu.cn");
+        showAlert("请输入正确的学校邮箱");
         return;
       }
       fetch("http://localhost:3000/get-ver-code", {
@@ -117,7 +121,7 @@ document.addEventListener("DOMContentLoaded", function () {
           if (data.status === "success") {
             alert("yanzhengma: " + data.message);
           } else {
-            alert("验证码发送失败");
+            showAlert("验证码发送失败");
           }
         })
         .catch((err) => {
@@ -145,3 +149,62 @@ document.addEventListener("DOMContentLoaded", function () {
     }, 1000);
   }
 });
+
+// 处理注册表单
+document
+  .querySelector("form[name='registerForm']")
+  .addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const FORM = e.target;
+    const formData = new FormData(FORM);
+
+    const firstPassword = formData.get("password");
+    const secondPassword = formData.get("confirmPassword");
+
+    if (firstPassword !== secondPassword) {
+      showAlert("两次输入的密码不一致");
+      return;
+    }
+
+    fetch(FORM.action, {
+      method: FORM.method,
+      body: new URLSearchParams(formData),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.status === "success") {
+          location.reload();
+        } else if (data.status === "already") {
+          showAlert("该邮箱已被注册");
+        } else {
+          showAlert("注册失败");
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  });
+
+function showAlert(message) {
+  const alertBox = document.createElement("div");
+  alertBox.classList.add("alert-box");
+  alertBox.innerHTML = `
+    <i class='bx bxs-error-circle bx-tada' ></i>
+    <span class="alert-message">${message}</span>
+  `;
+  document.body.appendChild(alertBox);
+
+  // show alert
+  setTimeout(() => {
+    alertBox.classList.add("active");
+  }, 100);
+
+  // hide alert after 3s
+  setTimeout(() => {
+    alertBox.classList.remove("active");
+    setTimeout(() => {
+      document.body.removeChild(alertBox);
+    }, 300);
+  }, 2000);
+}
