@@ -61,7 +61,7 @@ body {
 .login-img {
   width: 800px;
   height: 550px;
-  background-image: url(../../image/login/167918.webp);
+  background-image: url(../../image/167918.webp);
   background-size: cover;
   border-radius: 10px 0 0 10px;
   transition: transform 0.5s ease-in-out;

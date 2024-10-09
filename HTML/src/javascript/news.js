@@ -33,6 +33,9 @@ document.querySelectorAll(".user-block").forEach((element) => {
 document.addEventListener("DOMContentLoaded", function () {
   const searchInput = document.getElementById("user-search-input");
   const userBlocks = document.querySelectorAll(".user-block");
+  const messageInput = document.getElementById("message-input");
+  const messageShowBlock = document.querySelector(".message-show");
+  const sendButton = document.querySelector(".bx-send");
 
   searchInput.addEventListener("input", function () {
     const searchValue = searchInput.value.trim();
@@ -46,5 +49,32 @@ document.addEventListener("DOMContentLoaded", function () {
         userBlock.style.display = "none";
       }
     });
+  });
+
+  messageInput.addEventListener("keydown", function (event) {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      const messageValue = messageInput.value.trim();
+      if (messageValue) {
+        const messageBlock = document.createElement("div");
+        messageBlock.textContent = messageValue;
+        messageBlock.classList.add("message-block");
+        messageBlock.classList.add("send");
+        messageShowBlock.appendChild(messageBlock);
+        messageInput.value = "";
+      }
+    }
+  });
+
+  sendButton.addEventListener("click", function () {
+    const messageValue = messageInput.value.trim();
+    if (messageValue) {
+      const messageBlock = document.createElement("div");
+      messageBlock.textContent = messageValue;
+      messageBlock.classList.add("message-block");
+      messageBlock.classList.add("send");
+      messageShowBlock.appendChild(messageBlock);
+      messageInput.value = "";
+    }
   });
 });
