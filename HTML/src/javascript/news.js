@@ -77,4 +77,14 @@ document.addEventListener("DOMContentLoaded", function () {
       messageInput.value = "";
     }
   });
+
+  const gotoMessagePage = document.querySelector(".bx-comment-dots");
+  gotoMessagePage.addEventListener("click", function () {
+    window.location.reload();
+  });
+
+  const gotoLoginPage = document.querySelector(".bx-log-out");
+  gotoLoginPage.addEventListener("click", function () {
+    window.location.href = "login.html";
+  });
 });
