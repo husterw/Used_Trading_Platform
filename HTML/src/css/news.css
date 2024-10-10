@@ -29,12 +29,20 @@ body {
 
   border-radius: 20px;
   background-color: #988f8f;
+  border: 2px solid #988f8f;
+
+  transition: background-color 0.1s ease-in-out;
 }
 
 .header .logo a {
   color: white;
   font: 900 30px "楷体";
   text-decoration: none;
+}
+
+.header .logo:hover {
+  border: 2px solid #f0f0f0;
+  background-color: #333;
 }
 
 .header .user {
@@ -67,9 +75,8 @@ body {
   transition: transform 0.3s ease-in-out;
 }
 .header .user i:hover {
-  transition: transform 0.3s ease-in-out;
-  transform: translateY(-20%);
-  color: #333;
+  transform: scale(1.2);
+  color: #34d6ff;
 }
 
 .content-container {
