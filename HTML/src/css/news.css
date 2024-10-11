@@ -354,4 +354,5 @@ input::placeholder {
   margin-right: 5px;
   padding-right: 15px;
   font: 500 15px "";
+  display: none;
 }
