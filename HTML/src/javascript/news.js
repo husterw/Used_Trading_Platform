@@ -37,6 +37,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const messageShowBlock = document.querySelector(".message-show");
   const sendButton = document.querySelector(".bx-send");
 
+  // 用户的搜索逻辑
   searchInput.addEventListener("input", function () {
     const searchValue = searchInput.value.trim();
 
@@ -51,33 +52,24 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
+  // 消息的发送逻辑，按 Enter发送和点击发送按钮发送
   messageInput.addEventListener("keydown", function (event) {
     if (event.key === "Enter") {
       event.preventDefault();
       const messageValue = messageInput.value.trim();
       if (messageValue) {
-        const messageBlock = document.createElement("div");
-        messageBlock.textContent = messageValue;
-        messageBlock.classList.add("message-block");
-        messageBlock.classList.add("send");
-        messageShowBlock.appendChild(messageBlock);
-        messageInput.value = "";
+        createMessageBlock(messageValue, "send");
       }
     }
   });
-
   sendButton.addEventListener("click", function () {
     const messageValue = messageInput.value.trim();
     if (messageValue) {
-      const messageBlock = document.createElement("div");
-      messageBlock.textContent = messageValue;
-      messageBlock.classList.add("message-block");
-      messageBlock.classList.add("send");
-      messageShowBlock.appendChild(messageBlock);
-      messageInput.value = "";
+      createMessageBlock(messageValue, "send");
     }
   });
 
+  // 跳转到其他页面的逻辑
   const gotoMessagePage = document.querySelector(".bx-comment-dots");
   gotoMessagePage.addEventListener("click", function () {
     window.location.reload();
@@ -87,4 +79,28 @@ document.addEventListener("DOMContentLoaded", function () {
   gotoLoginPage.addEventListener("click", function () {
     window.location.href = "login.html";
   });
+
+  let count = 0;
+  const replyMessageList = ["Hello", "eaasg"];
+
+  // 每隔2s检测是否发送了信息，如果有则回应
+  setInterval(function () {
+    const messageBlockList = document.querySelectorAll(".message-block");
+    const sendMessageBlock = messageBlockList[messageBlockList.length - 1];
+    if (sendMessageBlock && sendMessageBlock.classList.contains("send")) {
+      createMessageBlock(replyMessageList[count], "rece");
+      count++;
+      count = count === replyMessageList.length ? 0 : count;
+    }
+  }, 2000);
 });
+
+// 生成聊天框中的文字块
+function createMessageBlock(content, type) {
+  const messageBlock = document.createElement("div");
+  messageBlock.textContent = content;
+  messageBlock.classList.add("message-block");
+  messageBlock.classList.add(type);
+  document.querySelector(".message-show").appendChild(messageBlock);
+  document.getElementById("message-input").value = "";
+}
