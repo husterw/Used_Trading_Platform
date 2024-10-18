@@ -59,6 +59,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const messageValue = messageInput.value.trim();
       if (messageValue) {
         createMessageBlock(messageValue, "send");
+        scrollToBottom();
       }
     }
   });
@@ -66,6 +67,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const messageValue = messageInput.value.trim();
     if (messageValue) {
       createMessageBlock(messageValue, "send");
+      scrollToBottom();
     }
   });
 
@@ -91,8 +93,53 @@ document.addEventListener("DOMContentLoaded", function () {
       createMessageBlock(replyMessageList[count], "rece");
       count++;
       count = count === replyMessageList.length ? 0 : count;
+      scrollToBottom();
     }
   }, 2000);
+
+  // 生成聊天框中的表情
+  const emojiButton = document.querySelector(".bx-wink-tongue");
+  const emojiList = document.querySelector(".emoji-list");
+  const emojiListItems = document.querySelectorAll(".emoji");
+
+  emojiButton.addEventListener("click", function () {
+    if (emojiList.classList.contains("show")) {
+      emojiList.classList.remove("show");
+    } else {
+      emojiList.classList.add("show");
+    }
+  });
+
+  emojiList.addEventListener("mouseover", function () {
+    emojiList.classList.add("show");
+  });
+
+  emojiList.addEventListener("mouseout", function () {
+    emojiList.classList.remove("show");
+  });
+
+  emojiListItems.forEach((emoji) => {
+    emoji.addEventListener("click", function () {
+      const emojiValue = emoji.innerHTML;
+      messageInput.value += emojiValue;
+    });
+  });
+
+  // 传输文件
+  document.querySelector(".bx-file").addEventListener("click", function () {
+    document.querySelector("#file-input").click();
+  });
+
+  document
+    .querySelector("#file-input")
+    .addEventListener("change", function (event) {
+      const files = event.target.files;
+      if (files.length > 0) {
+        const file = files[0];
+        console.log(file.name);
+        //TODO: 上传文件的逻辑
+      }
+    });
 });
 
 // 生成聊天框中的文字块
@@ -103,4 +150,10 @@ function createMessageBlock(content, type) {
   messageBlock.classList.add(type);
   document.querySelector(".message-show").appendChild(messageBlock);
   document.getElementById("message-input").value = "";
+}
+
+// 将消息页面的消息滚动到底部
+function scrollToBottom() {
+  const messageShowBlock = document.querySelector(".message-show");
+  messageShowBlock.scrollTop = messageShowBlock.scrollHeight;
 }
