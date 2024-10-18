@@ -1,0 +1,137 @@
+* {
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    background: linear-gradient(to right, #9c88ff, #3cadeb);
+    margin: 0;
+    padding: 0;
+  }
+  
+  .header {
+    background-color: #333;
+    height: 75px;
+  }
+  
+  .header .logo {
+    position: relative;
+    top: 50%;
+    left: 60px;
+    transform: translateY(-50%);
+  
+    width: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+    border-radius: 20px;
+    background-color: #988f8f;
+  }
+  
+  .header .logo a {
+    color: white;
+    font: 900 30px "楷体";
+    text-decoration: none;
+  }
+
+ #title-name{
+    text-align: center;
+ }
+
+ a{
+    text-decoration: none;
+ }
+
+ a:hover{
+  color: crimson;
+ }
+
+ button{
+  border: none;
+  background-color: #fff;
+ }
+
+ button:hover{
+  color: #9c88ff;;
+ }
+
+.container{
+    position: relative;
+    top: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+  
+    max-width: 1200px;
+    min-width: 800px;
+    max-height: 800px;
+    min-height: 500px;
+    width: calc(100vw - 400px);
+    height: calc(100vh - 200px);
+  
+    background-color: #fff;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+ .container .cart .td {
+    height: 36px;
+  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+    font: 600 15px "";
+    border-bottom: 2px solid #ccc;
+  }
+
+  img{
+    width:200px;
+    height:140px;
+  }
+
+  img:hover{
+    transform: scale(1.5);     
+  }
+
+ .goods-list .tbody div{
+    display: inline-block;
+    text-align: center;
+    width: 200px;
+    /*
+    border: 2px solid black;*/
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  .goods-list .tbody{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .goods-name{
+    width: 220px;
+  }
+
+  .goods-list{
+    overflow-y: scroll;
+  }
+
+  .goods-list .tbody .goods-img img{
+    overflow: hidden;
+  }
+  
+  #scrollable-div {
+    height: 600px;
+    overflow-y: scroll;
+  }
+
+  .head-owner{
+    margin-left: 380px;
+  }
+
+  .head-name{
+    margin-left: -15px;
+  }
