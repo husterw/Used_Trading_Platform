@@ -82,6 +82,11 @@ document.addEventListener("DOMContentLoaded", function () {
     window.location.href = "login.html";
   });
 
+  const gotoShopCart = document.querySelector(".bx-cart");
+  gotoShopCart.addEventListener("click", function () {
+    window.location.href = "shopcart.html";
+  });
+
   let count = 0;
   const replyMessageList = ["Hello", "eaasg"];
 

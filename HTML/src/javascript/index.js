@@ -12,3 +12,8 @@ const gotoUserPage = document.querySelector(".user-img");
 gotoUserPage.addEventListener("click", function () {
   window.location.href = "user.html";
 });
+
+const gotoShopCart = document.querySelector(".bx-cart");
+gotoShopCart.addEventListener("click", function () {
+  window.location.href = "shopcart.html";
+});
