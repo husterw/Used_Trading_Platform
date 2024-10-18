@@ -122,13 +122,13 @@ body {
 
 /* 头像 */
 .profile-avatar {
-    width: 230px;
-    height: 230px;
+    width: 250px;
+    height: 250px;
     border-radius: 50%;
     border: 2px solid #ccc;
     object-fit: cover;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-    margin-left: -10px;
+    margin-left: 18px;
     margin-top: -130px;
     margin-bottom: 20px;
 }
