@@ -157,3 +157,8 @@ function scrollToBottom() {
   const messageShowBlock = document.querySelector(".message-show");
   messageShowBlock.scrollTop = messageShowBlock.scrollHeight;
 }
+
+const gotoUserPage = document.querySelector(".user-img");
+gotoUserPage.addEventListener("click", function () {
+  window.location.href = "user.html";
+});
