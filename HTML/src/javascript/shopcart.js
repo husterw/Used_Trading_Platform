@@ -7,7 +7,7 @@ function deleterow(button) {
     console.log(row);
     //通过其父节点删除
     row.parentNode.removeChild(row);
-    alert("删除成功");
+    showAlert("删除成功");
     return true;
   }
 }
@@ -41,6 +41,29 @@ function loadCartItems() {
       });
     })
     .catch((error) => console.error("Error fetching cart:", error));
+}
+
+function showAlert(message) {
+  const alertBox = document.createElement("div");
+  alertBox.classList.add("alert-box");
+  alertBox.innerHTML = `
+    <i class='bx bxs-error-circle bx-tada' ></i>
+    <span class="alert-message">${message}</span>
+  `;
+  document.body.appendChild(alertBox);
+
+  // show alert
+  setTimeout(() => {
+    alertBox.classList.add("active");
+  }, 100);
+
+  // hide alert after 3s
+  setTimeout(() => {
+    alertBox.classList.remove("active");
+    setTimeout(() => {
+      document.body.removeChild(alertBox);
+    }, 300);
+  }, 2000);
 }
 
 // 跳转页面逻辑
