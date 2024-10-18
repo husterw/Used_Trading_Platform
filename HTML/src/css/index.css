@@ -17,7 +17,18 @@ body {
     transform: translate(-50%);
     width: 80vw;
     box-shadow: 0 0 20px #333;
-    
+    background-color: rgba(255,255,255,0.6);
+    border-radius: 30px;
+    animation: scratch 0.7s forwards;
+    /* opacity: 0.5; */
+  }
+  @keyframes scratch {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
   }
 /* header部分 */
   .header {
@@ -111,7 +122,7 @@ body {
     text-align: center;
     font-size: 28px;
     font-weight: bold;
-    color: #333;
+    color: #503f3f;
     margin-bottom: 20px;
     margin-top: 20px;
     width: 100%;
@@ -126,8 +137,8 @@ body {
 }
 
 .product-card {
-    background: white;
-    border: 1px solid #ddd;
+    background: rgb(231, 223, 223);
+    border: 1px solid #0e0d0d;
     border-radius: 8px;
     padding: 10px;
     text-align: center;
@@ -142,7 +153,7 @@ body {
     border-radius: 8px;
 }
 
-.product-card button {
+/* .product-card button {
     margin-top: 10px;
     padding: 10px;
     border: none;
@@ -154,7 +165,7 @@ body {
 
 .product-card button:hover {
     background: #218838;
-}
+} */
 .h4{
     margin-top: 0px;
 }
@@ -166,9 +177,10 @@ body {
     display: flex;
     border-radius: 10px;
     border-bottom: 2px solid #342f2f;
+    box-shadow: 0 0 20px #878484;
   }
 .container img{
-    margin-top: 30px;
+    margin-top: 20px;
     width: 100%;
     border-radius: 50px;
 }
@@ -180,7 +192,7 @@ body {
 
 .cate-card-container {
     width: 100px; /* 左侧分类栏的宽度 */
-    background-color: #8ec2c0;
+    background-color: #eae8ef;
     border-radius: 70px;
     padding: 15px;
     left: 0%;
@@ -194,7 +206,7 @@ body {
 .category-list li {
     padding: 10px 0;
     font-size: 16px;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #442762;
     cursor: pointer;
     text-align: center;
 }
@@ -210,12 +222,12 @@ body {
     margin-top: 20px;
     margin-left: 10px;
     display: grid;
-    grid-template-columns: repeat(6, 2fr); /* 每行四个商品 */
+    grid-template-columns: repeat(6, 2fr); /* 每行六个商品 */
     gap: 20px;
 }
 
 .featured-products .product {
-    background-color: #fff;
+    background-color: hsl(0, 29%, 97%);
     padding: 2px;
     border-radius: 8px;
     text-align: center;
@@ -223,6 +235,7 @@ body {
     box-shadow: 10 20px 50px rgba(0,0,0,0.1);
     height: 200px;
     left: 10px;
+    border: 1px solid #141414;
 }
 
 .featured-products .product img {
@@ -237,5 +250,5 @@ body {
 
 .featured-products .product p {
     font-size: 14px;
-    color: #888;
+    color: #252338;
 }
