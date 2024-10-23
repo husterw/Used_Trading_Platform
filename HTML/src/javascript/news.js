@@ -1,47 +1,23 @@
-document.querySelectorAll(".user-block").forEach((element) => {
-  element.addEventListener("click", (event) => {
-    const chatPage = document.querySelector(".contact-message .message-header");
-
-    const deleteIconRect = element.getBoundingClientRect();
-    const deleteIconLeft = deleteIconRect.left;
-    const deleteIconTop = deleteIconRect.top + 10;
-    const deleteIconWidth = 30;
-    const deleteIconHeight = 30;
-    // 判断点击的是否为删除按钮
-    if (
-      event.clientX >= deleteIconLeft &&
-      event.clientX <= deleteIconLeft + deleteIconWidth &&
-      event.clientY >= deleteIconTop &&
-      event.clientY <= deleteIconTop + deleteIconHeight
-    ) {
-      event.stopPropagation();
-      if (element.classList.contains("active")) {
-        chatPage.innerHTML = "";
-      }
-      element.remove();
-      return;
-    }
-    // 切换选中状态
-    document.querySelectorAll(".user-block").forEach((el) => {
-      el.classList.remove("active");
-    });
-    element.classList.add("active");
-    chatPage.innerHTML = element.querySelector(".user-name p").innerHTML;
-  });
-});
-
 document.addEventListener("DOMContentLoaded", function () {
   const searchInput = document.getElementById("user-search-input");
-  const userBlocks = document.querySelectorAll(".user-block");
   const messageInput = document.getElementById("message-input");
-  const messageShowBlock = document.querySelector(".message-show");
   const sendButton = document.querySelector(".bx-send");
+  const params = getQueryParams();
+  const contactName = params["contactName"];
+
+  // 生成联系人
+  if (contactName) {
+    createContactBlock(contactName, "../../image/picture1.jpg", "Hello");
+    document.querySelector(".user-list").firstChild.classList.add("active");
+    document.querySelector(".contact-message .message-header").textContent =
+      contactName;
+  }
 
   // 用户的搜索逻辑
   searchInput.addEventListener("input", function () {
     const searchValue = searchInput.value.trim();
 
-    userBlocks.forEach((userBlock) => {
+    document.querySelectorAll(".user-block").forEach((userBlock) => {
       const userName = userBlock.querySelector(".user-name p").innerHTML;
 
       if (userName.includes(searchValue)) {
@@ -49,6 +25,41 @@ document.addEventListener("DOMContentLoaded", function () {
       } else {
         userBlock.style.display = "none";
       }
+    });
+  });
+
+  // 用户的点击逻辑和和删除逻辑
+  document.querySelectorAll(".user-block").forEach((element) => {
+    element.addEventListener("click", (event) => {
+      const chatPage = document.querySelector(
+        ".contact-message .message-header"
+      );
+
+      const deleteIconRect = element.getBoundingClientRect();
+      const deleteIconLeft = deleteIconRect.left;
+      const deleteIconTop = deleteIconRect.top + 25;
+      const deleteIconWidth = 30;
+      const deleteIconHeight = 30;
+      // 判断点击的是否为删除按钮
+      if (
+        event.clientX >= deleteIconLeft &&
+        event.clientX <= deleteIconLeft + deleteIconWidth &&
+        event.clientY >= deleteIconTop &&
+        event.clientY <= deleteIconTop + deleteIconHeight
+      ) {
+        event.stopPropagation();
+        if (element.classList.contains("active")) {
+          chatPage.innerHTML = "";
+        }
+        element.remove();
+        return;
+      }
+      // 切换选中状态
+      document.querySelectorAll(".user-block").forEach((el) => {
+        el.classList.remove("active");
+      });
+      element.classList.add("active");
+      chatPage.innerHTML = element.querySelector(".user-name p").innerHTML;
     });
   });
 
@@ -85,6 +96,11 @@ document.addEventListener("DOMContentLoaded", function () {
   const gotoShopCart = document.querySelector(".bx-cart");
   gotoShopCart.addEventListener("click", function () {
     window.location.href = "shopcart.html";
+  });
+
+  const gotoUserpage = document.querySelector(".user-img");
+  gotoUserpage.addEventListener("click", function () {
+    window.location.href = "user.html";
   });
 
   let count = 0;
@@ -161,4 +177,80 @@ function createMessageBlock(content, type) {
 function scrollToBottom() {
   const messageShowBlock = document.querySelector(".message-show");
   messageShowBlock.scrollTop = messageShowBlock.scrollHeight;
+}
+
+// 解析 URL 参数
+function getQueryParams() {
+  const params = {};
+  const queryString = window.location.search.substring(1);
+  const regex = /([^&=]+)=([^&]*)/g;
+  let m;
+  while ((m = regex.exec(queryString))) {
+    params[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);
+  }
+  return params;
+}
+
+// 生成联系人
+function createContactBlock(userName, userImg, userInfo) {
+  const userList = document.querySelector(".user-list");
+
+  // 判断是否已经存在该联系人
+  const userBlockList = document.querySelectorAll(".user-block");
+  userBlockList.forEach((userBlock) => {
+    if (userBlock.querySelector(".user-name p").innerHTML === userName) {
+      userList.insertBefore(userBlock, userList.firstChild);
+      return;
+    }
+  });
+
+  const userBlock = document.createElement("div");
+  userBlock.classList.add("user-block");
+
+  const userImgBlock = document.createElement("div");
+  userImgBlock.classList.add("user-img");
+  const Img = document.createElement("img");
+  Img.src = userImg;
+  Img.alt = "";
+  userImgBlock.appendChild(Img);
+
+  const userDetails = document.createElement("div");
+  userDetails.classList.add("user-details");
+
+  const userNameDiv = document.createElement("div");
+  userNameDiv.classList.add("user-name");
+  const userNameP = document.createElement("p");
+  userNameP.textContent = userName;
+  userNameDiv.appendChild(userNameP);
+
+  const userTimeDiv = document.createElement("div");
+  userTimeDiv.classList.add("user-time");
+  const userTimeP = document.createElement("p");
+  userTimeP.textContent = getCurrentTime();
+  userTimeDiv.appendChild(userTimeP);
+
+  const userIntroductionDiv = document.createElement("div");
+  userIntroductionDiv.classList.add("user-introduction");
+  const userIntroductionP = document.createElement("p");
+  userIntroductionP.textContent = userInfo;
+  userIntroductionDiv.appendChild(userIntroductionP);
+
+  userDetails.appendChild(userNameDiv);
+  userDetails.appendChild(userTimeDiv);
+  userDetails.appendChild(userIntroductionDiv);
+
+  userBlock.appendChild(userImgBlock);
+  userBlock.appendChild(userDetails);
+
+  document
+    .querySelector(".user-list")
+    .insertBefore(userBlock, userList.firstChild);
+}
+
+// 获取当前时间
+function getCurrentTime() {
+  const now = new Date();
+  const hours = now.getHours().toString().padStart(2, "0");
+  const minutes = now.getMinutes().toString().padStart(2, "0");
+  return `${hours}:${minutes}`;
 }

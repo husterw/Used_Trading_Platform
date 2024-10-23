@@ -3,24 +3,24 @@ body {
   margin: 0;
   padding: 0;
   font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
 }
 .max-container {
   display: flex;
   justify-content: center;
   align-items: center;
+
   flex-direction: column;
+
   position: relative;
   left: 50%;
-  top: 50%;
+  /* top: 50%; */
   transform: translate(-50%);
-  width: 80vw;
-  min-width: 1200px;
-  box-shadow: 0 0 20px #333;
-  background-color: rgba(255, 255, 255, 0.6);
-  border-radius: 30px;
+  /* width: 80vw; */
+  /* min-width: 1200px; */
+  /* box-shadow: 0 0 20px #333; */
+  /* background-color: rgba(255, 255, 255, 0.6); */
+  /* border-radius: 30px; */
   animation: scratch 0.7s forwards;
-  /* opacity: 0.5; */
 }
 @keyframes scratch {
   from {
@@ -150,21 +150,8 @@ body {
   border-radius: 8px;
 }
 
-/* .product-card button {
-    margin-top: 10px;
-    padding: 10px;
-    border: none;
-    background: #28a745;
-    color: white;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.product-card button:hover {
-    background: #218838;
-} */
-.h4 {
-  margin-top: 0px;
+.product-card h4 {
+  margin-top: 20px;
 }
 
 /* 分类导航栏 右侧广告和商品展示 */
@@ -174,14 +161,20 @@ body {
   height: 550px;
   min-height: 550px;
   display: flex;
-  border-radius: 10px;
-  border-bottom: 2px solid #342f2f;
+  border-radius: 30px;
+  /* border-bottom: 2px solid #342f2f; */
+  background-color: rgba(255, 255, 255, 0.6);
   box-shadow: 0 0 20px #878484;
+  margin: 20px;
+  padding: 10px;
 }
 .container img {
   margin-top: 20px;
   width: 100%;
   border-radius: 50px;
+}
+.container > div > img {
+  margin-top: 40px;
 }
 .banner-container {
   display: flex;
@@ -205,13 +198,17 @@ body {
 .category-list li {
   padding: 10px 0;
   font-size: 16px;
-  border-bottom: 1px solid #442762;
+  /* border-bottom: 1px solid #442762; */
+  border-radius: 5px;
   cursor: pointer;
   text-align: center;
+
+  transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out;
 }
 
 .category-list li:hover {
-  background-color: #b9b9b9;
+  background-color: #cfcfcf;
+  transform: scale(1.2);
 }
 
 .featured-products {
