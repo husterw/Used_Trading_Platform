@@ -157,8 +157,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const files = event.target.files;
       if (files.length > 0) {
         const file = files[0];
-        console.log(file.name);
-        //TODO: 上传文件的逻辑
+        uploadFile(file);
       }
     });
 });
@@ -253,4 +252,23 @@ function getCurrentTime() {
   const hours = now.getHours().toString().padStart(2, "0");
   const minutes = now.getMinutes().toString().padStart(2, "0");
   return `${hours}:${minutes}`;
+}
+
+// 上传文件
+function uploadFile(file) {
+  const formData = new FormData();
+  formData.append("file", file);
+
+  fetch("url", {
+    method: "POST",
+    body: formData,
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("uploaded file data:", data);
+      // TODO: display file in message-show
+    })
+    .catch((error) => {
+      console.log("uploaded file error:", error);
+    });
 }
