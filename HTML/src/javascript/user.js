@@ -55,8 +55,6 @@ document.querySelector(".profile-edit").addEventListener("click", function (e) {
   const informationForm = document.querySelector(".information-form");
   const overlay = document.querySelector(".overlay");
 
-  console.log(informationForm);
-
   informationForm.classList.add("show");
   overlay.classList.add("show");
 
@@ -65,3 +63,59 @@ document.querySelector(".profile-edit").addEventListener("click", function (e) {
     overlay.classList.remove("show");
   });
 });
+
+document
+  .querySelector("form[name='modify-form']")
+  .addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const form = e.target;
+    const formData = new FormData(form);
+    const userName = formData.get("username");
+    const userPhone = formData.get("userphone");
+    const userAddress = formData.get("useraddress");
+    const userIntroduction = formData.get("userintroduction");
+
+    fetch(form.action, {
+      method: form.method,
+      body: new URLSearchParams(formData),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.status === "success") {
+          document.querySelector(".user-name").innerHTML = userName;
+          document.querySelector(".user-phone").innerHTML = userPhone;
+          document.querySelector(".user-address").innerHTML = userAddress;
+          document.querySelector(".user-introduction").innerHTML =
+            userIntroduction;
+          document.querySelector(".information-form").classList.remove("show");
+          document.querySelector(".overlay").classList.remove("show");
+        }
+      })
+      .catch((error) => {
+        showAlert("修改失败");
+      });
+  });
+
+function showAlert(message) {
+  const alertBox = document.createElement("div");
+  alertBox.classList.add("alert-box");
+  alertBox.innerHTML = `
+    <i class='bx bxs-error-circle bx-tada' ></i>
+    <span class="alert-message">${message}</span>
+  `;
+  document.body.appendChild(alertBox);
+
+  // show alert
+  setTimeout(() => {
+    alertBox.classList.add("active");
+  }, 100);
+
+  // hide alert after 3s
+  setTimeout(() => {
+    alertBox.classList.remove("active");
+    setTimeout(() => {
+      document.body.removeChild(alertBox);
+    }, 300);
+  }, 2000);
+}
