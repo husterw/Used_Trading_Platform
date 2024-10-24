@@ -67,6 +67,8 @@ document.querySelectorAll("form").forEach((form) => {
         .then((res) => res.json())
         .then((data) => {
           if (data.status === "success") {
+            localStorage.setItem('userid', data.userid);
+            //localStorage.setItem('username', );
             window.location.href = "../html/news.html";
           } else {
             showAlert(data.message);
