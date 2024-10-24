@@ -302,7 +302,7 @@ body {
 
   border: none;
   outline: none;
-  padding: 5px;
+  padding-left: 10px;
   border-radius: 10px;
   margin-bottom: 20px;
 }
@@ -312,11 +312,12 @@ body {
 
   font: 500 17px "";
   resize: none;
+  padding-left: 10px;
+  padding-right: 10px;
 
   border: none;
   outline: none;
   border-radius: 10px;
-  padding: 5px;
 }
 
 .information-form button {
