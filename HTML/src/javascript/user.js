@@ -64,6 +64,7 @@ document.querySelector(".profile-edit").addEventListener("click", function (e) {
   });
 });
 
+
 document
   .querySelector("form[name='modify-form']")
   .addEventListener("submit", function (e) {
@@ -75,7 +76,11 @@ document
     const userPhone = formData.get("userphone");
     const userAddress = formData.get("useraddress");
     const userIntroduction = formData.get("userintroduction");
+    const userId=localStorage.getItem('userid');
+    console.log(userIntroduction);
 
+    formData.append("userid", userId);
+    //console.log("diaoyon");
     fetch(form.action, {
       method: form.method,
       body: new URLSearchParams(formData),
@@ -83,13 +88,16 @@ document
       .then((res) => res.json())
       .then((data) => {
         if (data.status === "success") {
-          document.querySelector(".user-name").innerHTML = userName;
+          //showAlert("修改成功");
           document.querySelector(".user-phone").innerHTML = userPhone;
+          document.querySelector(".user-name").innerHTML = userName;
+          //console.log(userPhone);
           document.querySelector(".user-address").innerHTML = userAddress;
           document.querySelector(".user-introduction").innerHTML =
             userIntroduction;
           document.querySelector(".information-form").classList.remove("show");
           document.querySelector(".overlay").classList.remove("show");
+          location.reload();
         }
       })
       .catch((error) => {

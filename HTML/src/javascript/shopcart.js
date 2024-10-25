@@ -41,7 +41,7 @@ function loadCartItems() {
               <div class="goods-img"><img src="${product.imgurl}" alt=""></div>  
               <div class="goods-name">${product.sname}</div>  
               <div>${product.price}元</div>  
-              <div><a href="news.html?contactName=${product.uid}">${product.uid}</a></div>  
+              <div><a href="news.html?contactName=${product.uname}">${product.uname}</a></div>  
               <div><button onclick="delet(this,${product.sid})">移出购物车</button></div>  
           `;  
           goodsListDiv.appendChild(productDiv);  
@@ -77,10 +77,11 @@ function showAlert(message) {
 function delet(button, itemId) {  
   const row = button.parentElement.parentElement;  
   const ans = confirm("确认要删除？");
-if (ans===false) {
+  if (ans===false) {
      return false;
   }else{
       const userId = localStorage.getItem('userid'); // 获取用户名 
+      console.log(userId);
       if (!userId) {  
       console.error('用户未登录，无法删除购物车商品');  
       return; // 如果没有用户名，退出函数 
@@ -128,7 +129,7 @@ const gotoShopCart = document.querySelector(".bx-cart");
 gotoShopCart.addEventListener("click", function () {
   window.location.href = "shopcart.html";
 });
-/*
+
 function test(){
   if(!window.localStorage){
     alert("浏览器不支持localstorage");
@@ -137,8 +138,8 @@ function test(){
      console.log('Hello world!');
  }
  //localStorage.setItem('username', 'Alice');
- const username = localStorage.getItem('username');
+ const username = localStorage.getItem('userid');
  console.log(username);  // 输出：Alice
   alert("极度愤怒");
 
-}*/
+}
