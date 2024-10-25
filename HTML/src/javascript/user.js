@@ -45,7 +45,8 @@ document
     const userPhone = formData.get("userphone");
     const userAddress = formData.get("useraddress");
     const userIntroduction = formData.get("userintroduction");
-    showAlert("修改成功");
+    const userId = localStorage.getItem("userid");
+    formData.append("userid", userId);
 
     fetch(form.action, {
       method: form.method,
