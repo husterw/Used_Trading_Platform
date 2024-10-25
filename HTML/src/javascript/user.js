@@ -87,8 +87,7 @@ document
           document.querySelector(".user-name").innerHTML = userName;
           document.querySelector(".user-phone").innerHTML = userPhone;
           document.querySelector(".user-address").innerHTML = userAddress;
-          document.querySelector(".user-introduction").innerHTML =
-            userIntroduction;
+          document.querySelector(".user-intro").innerHTML = userIntroduction;
           document.querySelector(".information-form").classList.remove("show");
           document.querySelector(".overlay").classList.remove("show");
           window.location.reload();
