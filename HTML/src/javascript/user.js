@@ -43,6 +43,7 @@ document
     const userPhone = formData.get("userphone");
     const userAddress = formData.get("useraddress");
     const userIntroduction = formData.get("userintroduction");
+    showAlert("修改成功");
 
     fetch(form.action, {
       method: form.method,
@@ -58,6 +59,7 @@ document
             userIntroduction;
           document.querySelector(".information-form").classList.remove("show");
           document.querySelector(".overlay").classList.remove("show");
+          window.location.reload();
         }
       })
       .catch((error) => {
