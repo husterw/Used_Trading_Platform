@@ -1,3 +1,5 @@
+// 初始化
+
 const gotoMessagePage = document.querySelector(".bx-comment-dots");
 gotoMessagePage.addEventListener("click", function () {
   window.location.href = "news.html";
