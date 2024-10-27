@@ -105,8 +105,8 @@ document.addEventListener("DOMContentLoaded", function () {
     window.location.href = "user.html";
   });
 
-  let count = 0;
-  const replyMessageList = ["Hello", "eaasg"];
+  // let count = 0;
+  // const replyMessageList = ["Hello", "eaasg"];
 
   // 每隔5s检测是否发送了信息，如果有则回应
   setInterval(receiveMessage, 5000);
@@ -173,6 +173,18 @@ function createMessageBlock(content, type) {
   messageBlock.classList.add(type);
   document.querySelector(".message-show").appendChild(messageBlock);
   document.getElementById("message-input").value = "";
+}
+
+// 生成聊天中的图片块
+function createImgaeBlock(imgUrl, type) {
+  const imgBlock = document.createElement("img");
+  const img = document.createElement("img");
+  img.src = imgUrl;
+  imgBlock.appendChild(img);
+  imgBlock.classList.add("message-block");
+  imgBlock.classList.add(type);
+  imgBlock.classList.add("img");
+  document.querySelector(".message-show").appendChild(imgBlock);
 }
 
 // 将消息页面的消息滚动到底部
@@ -290,6 +302,9 @@ function sendMessage() {
     };
     fetch("http://localhost:3000/send-messages", {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify(messagetoServer),
     })
       .then((response) => response.json())
@@ -308,6 +323,9 @@ function receiveMessage() {
 
   fetch("http://localhost:3000/receive-messages", {
     method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
     body: JSON.stringify({ senduser: senduser, receiveuser: receiveuser }),
   })
     .then((response) => response.json())
