@@ -69,7 +69,8 @@ document.addEventListener("DOMContentLoaded", function () {
       event.preventDefault();
       const messageValue = messageInput.value.trim();
       if (messageValue) {
-        createMessageBlock(messageValue, "send");
+        // createMessageBlock(messageValue, "send");
+        sendMessage();
         scrollToBottom();
       }
     }
@@ -77,7 +78,8 @@ document.addEventListener("DOMContentLoaded", function () {
   sendButton.addEventListener("click", function () {
     const messageValue = messageInput.value.trim();
     if (messageValue) {
-      createMessageBlock(messageValue, "send");
+      // createMessageBlock(messageValue, "send");
+      sendMessage();
       scrollToBottom();
     }
   });
@@ -106,17 +108,18 @@ document.addEventListener("DOMContentLoaded", function () {
   let count = 0;
   const replyMessageList = ["Hello", "eaasg"];
 
-  // 每隔2s检测是否发送了信息，如果有则回应
-  setInterval(function () {
-    const messageBlockList = document.querySelectorAll(".message-block");
-    const sendMessageBlock = messageBlockList[messageBlockList.length - 1];
-    if (sendMessageBlock && sendMessageBlock.classList.contains("send")) {
-      createMessageBlock(replyMessageList[count], "rece");
-      count++;
-      count = count === replyMessageList.length ? 0 : count;
-      scrollToBottom();
-    }
-  }, 2000);
+  // 每隔5s检测是否发送了信息，如果有则回应
+  setInterval(receiveMessage, 5000);
+  // setInterval(function () {
+  //   const messageBlockList = document.querySelectorAll(".message-block");
+  //   const sendMessageBlock = messageBlockList[messageBlockList.length - 1];
+  //   if (sendMessageBlock && sendMessageBlock.classList.contains("send")) {
+  //     createMessageBlock(replyMessageList[count], "rece");
+  //     count++;
+  //     count = count === replyMessageList.length ? 0 : count;
+  //     scrollToBottom();
+  //   }
+  // }, 2000);
 
   // 生成聊天框中的表情
   const emojiButton = document.querySelector(".bx-wink-tongue");
@@ -270,5 +273,50 @@ function uploadFile(file) {
     })
     .catch((error) => {
       console.log("uploaded file error:", error);
+    });
+}
+
+function sendMessage() {
+  const messageValue = document.getElementById("message-input").value.trim();
+  if (messageValue) {
+    const senduser = localStorage.getItem("userid");
+    const receiveuser = document.querySelector(
+      ".contact-message .message-header"
+    );
+    const messagetoServer = {
+      senduser: senduser,
+      receiveuser: receiveuser,
+      message: messageValue,
+    };
+    fetch("http://localhost:3000/send-messages", {
+      method: "POST",
+      body: JSON.stringify(messagetoServer),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.status === "success") createMessageBlock(messageValue, "send");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+}
+
+function receiveMessage() {
+  const receiveuser = localStorage.getItem("userid");
+  const senduser = document.querySelector(".contact-message .message-header");
+
+  fetch("http://localhost:3000/receive-messages", {
+    method: "GET",
+    body: JSON.stringify({ senduser: senduser, receiveuser: receiveuser }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.status === "success") {
+        createMessageBlock(data.message, "rece");
+      }
+    })
+    .catch((error) => {
+      console.log(error);
     });
 }
