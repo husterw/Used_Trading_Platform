@@ -1,5 +1,20 @@
 
 //初始化个人信息页面
+//加载用户信息的函数
+function loadUserInfo() {
+  const userId = localStorage.getItem("userid");
+
+  fetch(`http://localhost:2999/user/info/${userId}`)
+    .then((response) => response.json())
+    .then((userInfo) => {
+      //更新用户信息显示
+      document.getElementById("userName").innerText = userInfo.uname;
+      document.getElementById("userPhone").innerText = userInfo.phone;
+      document.getElementById("userAddress").innerText = userInfo.dormitory;
+      document.getElementById("userIntroduction").innerText = userInfo.remark;
+    })
+    .catch((error) => console.error("Error fetching user info:", error));
+}
 
 // 加载用户信息的函数  
 function loadUserInfo() {  
