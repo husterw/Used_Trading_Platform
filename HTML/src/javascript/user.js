@@ -1,3 +1,4 @@
+
 //初始化个人信息页面
 
 // 加载用户信息的函数  
@@ -24,8 +25,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
 window.onload = function() {  
   initUserInfo();  
 };  */
-// 初始化
 
+
+
+
+
+//页面跳转逻辑
 const gotoMessagePage = document.querySelector(".bx-comment-dots");
 gotoMessagePage.addEventListener("click", function () {
   window.location.href = "news.html";
@@ -60,6 +65,7 @@ document.querySelector(".profile-edit").addEventListener("click", function (e) {
   });
 });
 
+
 document
   .querySelector("form[name='modify-form']")
   .addEventListener("submit", function (e) {
@@ -71,9 +77,10 @@ document
     const userPhone = formData.get("userphone");
     const userAddress = formData.get("useraddress");
     const userIntroduction = formData.get("userintroduction");
-    const userId = localStorage.getItem("userid");
-    formData.append("userid", userId);
+    showAlert("修改成功");
 
+    formData.append("userid", userId);
+    //console.log("diaoyon");
     fetch(form.action, {
       method: form.method,
       body: new URLSearchParams(formData),
@@ -81,21 +88,19 @@ document
       .then((res) => res.json())
       .then((data) => {
         if (data.status === "success") {
-          console.log("ok");
-          console.log(userPhone);
-          console.log(userIntroduction);
-          document.querySelector(".user-name").innerHTML = userName;
+          //showAlert("修改成功");
           document.querySelector(".user-phone").innerHTML = userPhone;
+          document.querySelector(".user-name").innerHTML = userName;
+          //console.log(userPhone);
           document.querySelector(".user-address").innerHTML = userAddress;
-          document.querySelector(".user-intro").innerHTML = userIntroduction;
+          document.querySelector(".user-introduction").innerHTML =
+            userIntroduction;
           document.querySelector(".information-form").classList.remove("show");
           document.querySelector(".overlay").classList.remove("show");
           window.location.reload();
         }
       })
       .catch((error) => {
-        console.log(error);
-        console.log("错啦");
         showAlert("修改失败");
       });
   });
