@@ -434,22 +434,31 @@ input::placeholder {
   position: absolute;
   bottom: 55px;
 
-  width: 300px;
+  width: 320px;
   height: 170px;
 
   background-color: #fff;
   border: 2px solid #ccc;
   border-radius: 10px 10px 10px 8px;
+  padding: 10px;
 
   visibility: hidden;
   opacity: 0;
   transition: opacity 0.1s ease-in-out, visibility 0.1s ease-in-out;
-
+}
+.emoji-content {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(30px, 1fr));
-  grid-template-rows: repeat(auto-fill, minmax(30px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  grid-template-rows: repeat(auto-fill, minmax(40px, 1fr));
+  grid-auto-rows: 40px;
   column-gap: 5px;
-  padding: 10px;
+  height: 100%;
+
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+.emoji-content::-webkit-scrollbar {
+  display: none;
 }
 .emoji-list.show {
   visibility: visible;
@@ -476,9 +485,6 @@ input::placeholder {
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  font-size: 24px;
-  width: 30px;
-  height: 30px;
 }
 
 .emoji:hover {

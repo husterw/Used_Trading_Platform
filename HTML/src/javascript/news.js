@@ -59,6 +59,7 @@ document.addEventListener("DOMContentLoaded", function () {
         el.classList.remove("active");
       });
       element.classList.add("active");
+      this.querySelector(".message-show").innerHTML = "";
       chatPage.innerHTML = element.querySelector(".user-name p").innerHTML;
     });
   });
@@ -69,8 +70,7 @@ document.addEventListener("DOMContentLoaded", function () {
       event.preventDefault();
       const messageValue = messageInput.value.trim();
       if (messageValue) {
-        // createMessageBlock(messageValue, "send");
-        sendMessage();
+        sendMessage(messageValue);
         scrollToBottom();
       }
     }
@@ -78,8 +78,7 @@ document.addEventListener("DOMContentLoaded", function () {
   sendButton.addEventListener("click", function () {
     const messageValue = messageInput.value.trim();
     if (messageValue) {
-      // createMessageBlock(messageValue, "send");
-      sendMessage();
+      sendMessage(messageValue);
       scrollToBottom();
     }
   });
@@ -105,21 +104,8 @@ document.addEventListener("DOMContentLoaded", function () {
     window.location.href = "user.html";
   });
 
-  // let count = 0;
-  // const replyMessageList = ["Hello", "eaasg"];
-
-  // 每隔5s检测是否发送了信息，如果有则回应
-  setInterval(receiveMessage, 5000);
-  // setInterval(function () {
-  //   const messageBlockList = document.querySelectorAll(".message-block");
-  //   const sendMessageBlock = messageBlockList[messageBlockList.length - 1];
-  //   if (sendMessageBlock && sendMessageBlock.classList.contains("send")) {
-  //     createMessageBlock(replyMessageList[count], "rece");
-  //     count++;
-  //     count = count === replyMessageList.length ? 0 : count;
-  //     scrollToBottom();
-  //   }
-  // }, 2000);
+  // 每隔2s检测是否发送了信息，如果有则回应
+  setInterval(receiveMessage, 2000);
 
   // 生成聊天框中的表情
   const emojiButton = document.querySelector(".bx-wink-tongue");
@@ -153,14 +139,14 @@ document.addEventListener("DOMContentLoaded", function () {
   document.querySelector(".bx-file").addEventListener("click", function () {
     document.querySelector("#file-input").click();
   });
-
   document
     .querySelector("#file-input")
     .addEventListener("change", function (event) {
       const files = event.target.files;
       if (files.length > 0) {
         const file = files[0];
-        uploadFile(file);
+        const filePath = "../../image/" + file.name;
+        sendMessage(filePath);
       }
     });
 });
@@ -269,27 +255,7 @@ function getCurrentTime() {
   return `${hours}:${minutes}`;
 }
 
-// 上传文件
-function uploadFile(file) {
-  const formData = new FormData();
-  formData.append("file", file);
-
-  fetch("http://localhost:3000/images", {
-    method: "POST",
-    body: formData,
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      if (data.status === "success") createImgaeBlock(data.url, "send");
-      scrollToBottom();
-    })
-    .catch((error) => {
-      console.log("uploaded file error:", error);
-    });
-}
-
-function sendMessage() {
-  const messageValue = document.getElementById("message-input").value.trim();
+function sendMessage(messageValue) {
   if (messageValue) {
     const senduser = localStorage.getItem("userid");
     const receiveuser = document.querySelector(
@@ -309,7 +275,11 @@ function sendMessage() {
     })
       .then((response) => response.json())
       .then((data) => {
-        if (data.status === "success") createMessageBlock(messageValue, "send");
+        if (data.status === "success") {
+          if (data.type === "text") createMessageBlock(messageValue, "send");
+          else if (data.type === "image")
+            createImgaeBlock(messageValue, "send");
+        }
       })
       .catch((error) => {
         console.log(error);
