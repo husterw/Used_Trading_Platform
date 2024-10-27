@@ -294,7 +294,8 @@ function sendMessage() {
     const senduser = localStorage.getItem("userid");
     const receiveuser = document.querySelector(
       ".contact-message .message-header"
-    );
+    ).innerHTML;
+
     const messagetoServer = {
       senduser: senduser,
       receiveuser: receiveuser,
@@ -319,10 +320,10 @@ function sendMessage() {
 
 function receiveMessage() {
   const receiveuser = localStorage.getItem("userid");
-  const senduser = document.querySelector(".contact-message .message-header");
+  const senduser = document.querySelector(".contact-message .message-header").innerHTML;
 
   fetch("http://localhost:3000/receive-messages", {
-    method: "GET",
+    method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
@@ -331,7 +332,7 @@ function receiveMessage() {
     .then((response) => response.json())
     .then((data) => {
       if (data.status === "success") {
-        createMessageBlock(data.message, "rece");
+        createMessageBlock(data.message.mail, "rece");
       }
     })
     .catch((error) => {
