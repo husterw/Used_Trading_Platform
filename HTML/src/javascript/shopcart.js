@@ -39,7 +39,7 @@ function loadCartItems() {
           productDiv.className = "tbody";  
           productDiv.innerHTML = `  
               <div class="goods-img"><img src="${product.imgurl}" alt=""></div>  
-              <div class="goods-name">${product.sname}</div>  
+              <div><button class="goods-name" onclick="gotodetail(${product.sid})">${product.sname}</button></div>
               <div>${product.price}元</div>  
               <div><a href="news.html?contactName=${product.uname}">${product.uname}</a></div>  
               <div><button onclick="delet(this,${product.sid})">移出购物车</button></div>  
@@ -129,6 +129,12 @@ const gotoShopCart = document.querySelector(".bx-cart");
 gotoShopCart.addEventListener("click", function () {
   window.location.href = "shopcart.html";
 });
+
+//跳转商品详情
+function gotodetail(itemId) {  
+  window.location.href = `detail.html?id=${itemId}`;  
+ }  
+
 
 function test(){
   if(!window.localStorage){

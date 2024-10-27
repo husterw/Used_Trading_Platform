@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>华中科技大学二手交易平台</title>
+    <link rel="stylesheet" href="..\css\detail.css" />
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <div class="header">
+      <div class="logo">
+        <a href="login.html">华易</a>
+      </div>
+      <div class="user">
+        <img src="../../image/chat-bg.png" class="user-img" alt="" />
+        <i class="bx bx-cart"></i>
+        <i class="bx bx-comment-dots"></i>
+        <i class="bx bx-log-out"></i>
+      </div>
+    </div>
+
+    <div class="max-container">
+      <div class="detail">
+        <div class="product">
+          <img src="../../image/OIP-C.jpg" />
+        </div>
+        <div class="user-list">
+          <div class="seller" id="product-image">
+            <img src="../../image/OIP-C.jpg" />
+          </div>
+          <div class="h5">卖家家家家家</div>
+          <div class="button">进入商家主页</div>
+        </div>
+        <h2 id="product-title" class="name">虚构产品名称</h2>  
+        <p id="product-price" class="price">价格: <span>¥199.00</span></p>  
+        <p id="product-description" class="context">这是一个非常好的产品，能够满足您的需求。它采用高品质材料，耐用且实用。</p>  
+        <div class="buttons">
+          <button class="com_with_seller" onclick="deleteRow(this)">联系商家</button>
+
+          <button class="add-to-cart" onclick="addshop(this,5)">添加到购物车</button>
+        </div>
+      </div>
+    </div>
+    <script src="../javascript/detail.js"></script>
+  </body>
+</html>
