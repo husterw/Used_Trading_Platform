@@ -274,14 +274,14 @@ function uploadFile(file) {
   const formData = new FormData();
   formData.append("file", file);
 
-  fetch("url", {
+  fetch("http://localhost:3000/images", {
     method: "POST",
     body: formData,
   })
     .then((response) => response.json())
     .then((data) => {
-      console.log("uploaded file data:", data);
-      // TODO: display file in message-show
+      if (data.status === "success") createImgaeBlock(data.url, "send");
+      scrollToBottom();
     })
     .catch((error) => {
       console.log("uploaded file error:", error);
@@ -294,7 +294,7 @@ function sendMessage() {
     const senduser = localStorage.getItem("userid");
     const receiveuser = document.querySelector(
       ".contact-message .message-header"
-    );
+    ).innerHTML;
     const messagetoServer = {
       senduser: senduser,
       receiveuser: receiveuser,
@@ -319,7 +319,9 @@ function sendMessage() {
 
 function receiveMessage() {
   const receiveuser = localStorage.getItem("userid");
-  const senduser = document.querySelector(".contact-message .message-header");
+  const senduser = document.querySelector(
+    ".contact-message .message-header"
+  ).innerHTML;
 
   fetch("http://localhost:3000/receive-messages", {
     method: "GET",
@@ -331,7 +333,10 @@ function receiveMessage() {
     .then((response) => response.json())
     .then((data) => {
       if (data.status === "success") {
-        createMessageBlock(data.message, "rece");
+        if (data.type === "text") createMessageBlock(data.message.mail, "rece");
+        else if (data.type === "image")
+          createImgaeBlock(data.message.mail, "rece");
+        scrollToBottom();
       }
     })
     .catch((error) => {
