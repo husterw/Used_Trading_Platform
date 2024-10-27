@@ -274,14 +274,14 @@ function uploadFile(file) {
   const formData = new FormData();
   formData.append("file", file);
 
-  fetch("url", {
+  fetch("http://localhost:3000/images", {
     method: "POST",
     body: formData,
   })
     .then((response) => response.json())
     .then((data) => {
-      console.log("uploaded file data:", data);
-      // TODO: display file in message-show
+      if (data.status === "success") createImgaeBlock(data.url, "send");
+      scrollToBottom();
     })
     .catch((error) => {
       console.log("uploaded file error:", error);
@@ -295,7 +295,6 @@ function sendMessage() {
     const receiveuser = document.querySelector(
       ".contact-message .message-header"
     ).innerHTML;
-
     const messagetoServer = {
       senduser: senduser,
       receiveuser: receiveuser,
@@ -332,7 +331,10 @@ function receiveMessage() {
     .then((response) => response.json())
     .then((data) => {
       if (data.status === "success") {
-        createMessageBlock(data.message.mail, "rece");
+        if (data.type === "text") createMessageBlock(data.message.mail, "rece");
+        else if (data.type === "image")
+          createImgaeBlock(data.message.mail, "rece");
+        scrollToBottom();
       }
     })
     .catch((error) => {

@@ -343,6 +343,17 @@ input::placeholder {
   border-radius: 0 10px 10px 10px;
 }
 
+.img {
+  background-size: cover;
+}
+.img img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 50vh;
+  border-radius: 10px;
+}
+
 .message-send {
   position: relative;
   width: inherit;
