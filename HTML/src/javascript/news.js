@@ -59,6 +59,7 @@ document.addEventListener("DOMContentLoaded", function () {
         el.classList.remove("active");
       });
       element.classList.add("active");
+      this.querySelector(".message-show").innerHTML = "";
       chatPage.innerHTML = element.querySelector(".user-name p").innerHTML;
     });
   });
