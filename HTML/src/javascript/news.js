@@ -163,7 +163,7 @@ function createMessageBlock(content, type) {
 
 // 生成聊天中的图片块
 function createImgaeBlock(imgUrl, type) {
-  const imgBlock = document.createElement("img");
+  const imgBlock = document.createElement("div");
   const img = document.createElement("img");
   img.src = imgUrl;
   imgBlock.appendChild(img);
