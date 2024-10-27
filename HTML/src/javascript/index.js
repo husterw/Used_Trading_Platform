@@ -120,3 +120,13 @@ function resetMasonryHeight() {
 }
 
 window.addEventListener("resize", resetMasonryHeight);
+
+document
+  .querySelector(".search input")
+  .addEventListener("keydown", function (event) {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      const value = event.target.value;
+      window.location.href = "search.html?value=" + value;
+    }
+  });
