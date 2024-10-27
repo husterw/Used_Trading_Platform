@@ -1,7 +1,6 @@
 //添加购物车：
 function addshop(button, productId) {  
-    //const userId = localStorage.getItem('userid'); 
-    const userId=5;
+    const userId = localStorage.getItem('userid'); 
     if (!userId) {
       console.error('用户未登录，无法添加商品到购物车');
       return; // 如果没有用户 ID，退出函数
@@ -55,6 +54,8 @@ function fetchProductDetails() {
     document.querySelector('#product-image img').src = data.imgurl;
     const addToCartButton = document.querySelector('.add-to-cart');
     addToCartButton.onclick = () => addshop(addToCartButton, itemId);
+    const goToSellerButton = document.querySelector('.go-to-seller');
+    goToSellerButton.onclick = () => gotoseller(data.uid);
     })   
     .catch(error => console.error('获取商品详情时出错:', error));  
     } else {  
@@ -63,3 +64,8 @@ function fetchProductDetails() {
 }  
    
 window.onload = fetchProductDetails;
+
+//跳转商家主页
+function gotoseller(userId) {  
+  window.location.href = `seller.html?uid=${userId}`;  
+ }  
