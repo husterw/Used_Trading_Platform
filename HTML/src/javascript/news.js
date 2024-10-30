@@ -279,6 +279,7 @@ function sendMessage(messageValue) {
           if (data.type === "text") createMessageBlock(messageValue, "send");
           else if (data.type === "image")
             createImageBlock(messageValue, "send");
+          scrollToBottom();
         }
       })
       .catch((error) => {
@@ -292,17 +293,17 @@ function receiveMessage() {
   const senduser = document.querySelector(
     ".contact-message .message-header"
   ).innerHTML;
-
+  const messagetoServer = {
+    senduser: senduser,
+    receiveuser: receiveuser,
+    message: messageValue,
+  };
   fetch("http://localhost:3000/send-messages", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({
-      senduser: senduser,
-      receiveuser: receiveuser,
-      message: "",
-    }),
+    body: JSON.stringify(messagetoServer),
   })
     .then((response) => response.json())
     .then((data) => {
