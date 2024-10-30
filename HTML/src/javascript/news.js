@@ -27,6 +27,41 @@ document.addEventListener("DOMContentLoaded", function () {
         data.users.forEach((user) => {
           createContactBlock(user.uname, user.txurl, user.remark);
         });
+        document.querySelectorAll(".user-block").forEach((element) => {
+          element.addEventListener("click", (event) => {
+            const chatPage = document.querySelector(
+              ".contact-message .message-header"
+            );
+
+            const deleteIconRect = element.getBoundingClientRect();
+            const deleteIconLeft = deleteIconRect.left;
+            const deleteIconTop = deleteIconRect.top + 25;
+            const deleteIconWidth = 30;
+            const deleteIconHeight = 30;
+            // 判断点击的是否为删除按钮
+            if (
+              event.clientX >= deleteIconLeft &&
+              event.clientX <= deleteIconLeft + deleteIconWidth &&
+              event.clientY >= deleteIconTop &&
+              event.clientY <= deleteIconTop + deleteIconHeight
+            ) {
+              event.stopPropagation();
+              if (element.classList.contains("active")) {
+                chatPage.innerHTML = "";
+              }
+              element.remove();
+              return;
+            }
+            // 切换选中状态
+            document.querySelectorAll(".user-block").forEach((el) => {
+              el.classList.remove("active");
+            });
+            element.classList.add("active");
+            this.querySelector(".message-show").innerHTML = "";
+            chatPage.innerHTML =
+              element.querySelector(".user-name p").innerHTML;
+          });
+        });
       }
     })
     .catch((err) => {
@@ -45,42 +80,6 @@ document.addEventListener("DOMContentLoaded", function () {
       } else {
         userBlock.style.display = "none";
       }
-    });
-  });
-
-  // 用户的点击逻辑和和删除逻辑
-  document.querySelectorAll(".user-block").forEach((element) => {
-    element.addEventListener("click", (event) => {
-      const chatPage = document.querySelector(
-        ".contact-message .message-header"
-      );
-
-      const deleteIconRect = element.getBoundingClientRect();
-      const deleteIconLeft = deleteIconRect.left;
-      const deleteIconTop = deleteIconRect.top + 25;
-      const deleteIconWidth = 30;
-      const deleteIconHeight = 30;
-      // 判断点击的是否为删除按钮
-      if (
-        event.clientX >= deleteIconLeft &&
-        event.clientX <= deleteIconLeft + deleteIconWidth &&
-        event.clientY >= deleteIconTop &&
-        event.clientY <= deleteIconTop + deleteIconHeight
-      ) {
-        event.stopPropagation();
-        if (element.classList.contains("active")) {
-          chatPage.innerHTML = "";
-        }
-        element.remove();
-        return;
-      }
-      // 切换选中状态
-      document.querySelectorAll(".user-block").forEach((el) => {
-        el.classList.remove("active");
-      });
-      element.classList.add("active");
-      this.querySelector(".message-show").innerHTML = "";
-      chatPage.innerHTML = element.querySelector(".user-name p").innerHTML;
     });
   });
 
@@ -124,7 +123,7 @@ document.addEventListener("DOMContentLoaded", function () {
     window.location.href = "user.html";
   });
 
-  // 每隔2s检测是否发送了信息，如果有则回应
+  // 每隔3s检测是否发送了信息，如果有则回应
   setInterval(receiveMessage, 3000);
 
   // 生成聊天框中的表情
