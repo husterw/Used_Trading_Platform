@@ -70,7 +70,7 @@ async function createCard(i) {
     card.style.visibility = "";
     card.classList.add("show");
     card.addEventListener("click", function () {
-      window.location.href = `shopcart.html?id=${idturn}`;
+      window.location.href = `detail.html?id=${idturn + 1}`;
     });
     cardCount++;
 

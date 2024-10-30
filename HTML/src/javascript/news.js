@@ -105,7 +105,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // 每隔2s检测是否发送了信息，如果有则回应
-  setInterval(receiveMessage, 2000);
+  setInterval(receiveMessage, 3000);
 
   // 生成聊天框中的表情
   const emojiButton = document.querySelector(".bx-wink-tongue");
@@ -162,7 +162,7 @@ function createMessageBlock(content, type) {
 }
 
 // 生成聊天中的图片块
-function createImgaeBlock(imgUrl, type) {
+function createImageBlock(imgUrl, type) {
   const imgBlock = document.createElement("div");
   const img = document.createElement("img");
   img.src = imgUrl;
@@ -278,7 +278,7 @@ function sendMessage(messageValue) {
         if (data.status === "success") {
           if (data.type === "text") createMessageBlock(messageValue, "send");
           else if (data.type === "image")
-            createImgaeBlock(messageValue, "send");
+            createImageBlock(messageValue, "send");
         }
       })
       .catch((error) => {
@@ -293,19 +293,23 @@ function receiveMessage() {
     ".contact-message .message-header"
   ).innerHTML;
 
-  fetch("http://localhost:3000/receive-messages", {
-    method: "GET",
+  fetch("http://localhost:3000/send-messages", {
+    method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ senduser: senduser, receiveuser: receiveuser }),
+    body: JSON.stringify({
+      senduser: senduser,
+      receiveuser: receiveuser,
+      message: "",
+    }),
   })
     .then((response) => response.json())
     .then((data) => {
       if (data.status === "success") {
         if (data.type === "text") createMessageBlock(data.message.mail, "rece");
         else if (data.type === "image")
-          createImgaeBlock(data.message.mail, "rece");
+          createImageBlock(data.message.mail, "rece");
         scrollToBottom();
       }
     })
