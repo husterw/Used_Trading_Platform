@@ -24,6 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
     .then((response) => response.json())
     .then((data) => {
       if (data.status === "success") {
+        console.log("ok");
         data.users.forEach((user) => {
           createContactBlock(user.uname, user.txurl, user.remark);
         });
