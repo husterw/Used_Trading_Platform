@@ -13,6 +13,26 @@ document.addEventListener("DOMContentLoaded", function () {
       contactName;
   }
 
+  // 初始化联系人列表
+  fetch("http://localhost:3000/get-users", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ userid: localStorage.getItem("userid") }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.status === "success") {
+        data.users.forEach((user) => {
+          createContactBlock(user.uname, user.txurl, user.remark);
+        });
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+
   // 用户的搜索逻辑
   searchInput.addEventListener("input", function () {
     const searchValue = searchInput.value.trim();
