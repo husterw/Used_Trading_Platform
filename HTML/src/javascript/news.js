@@ -257,7 +257,6 @@ function getCurrentTime() {
 
 function sendMessage(messageValue) {
   if (messageValue) {
-    console.log("send");
     const senduser = localStorage.getItem("userid");
     const receiveuser = document.querySelector(
       ".contact-message .message-header"
@@ -281,6 +280,7 @@ function sendMessage(messageValue) {
           if (data.type === "text") createMessageBlock(messageValue, "send");
           else if (data.type === "image")
             createImageBlock(messageValue, "send");
+          scrollToBottom();
         }
       })
       .catch((error) => {
@@ -291,18 +291,20 @@ function sendMessage(messageValue) {
 
 function receiveMessage() {
   const receiveuser = localStorage.getItem("userid");
-  const senduser = document.querySelector(".contact-message .message-header").innerHTML;
-
-  fetch("http://localhost:3000/send-messages", {
+  const senduser = document.querySelector(
+    ".contact-message .message-header"
+  ).innerHTML;
+  const messagetoServer = {
+    senduser: senduser,
+    receiveuser: receiveuser,
+    message: "",
+  };
+  fetch("http://localhost:3000/receive-messages", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({
-      senduser: senduser,
-      receiveuser: receiveuser,
-      message: "",
-    }),
+    body: JSON.stringify(messagetoServer),
   })
     // .then((response) => response.json())
     .then((response) => {
