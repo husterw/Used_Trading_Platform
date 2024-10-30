@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function () {
     .then((data) => {
       if (data.status === "success") {
         data.users.forEach((user) => {
-          createContactBlock(user.username, user.img, user.introduction);
+          createContactBlock(user.uname, user.txurl, user.remark);
         });
       }
     })
