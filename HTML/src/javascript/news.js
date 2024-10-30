@@ -105,7 +105,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // 每隔2s检测是否发送了信息，如果有则回应
-  setInterval(receiveMessage, 2000);
+  // setInterval(receiveMessage, 8000);
 
   // 生成聊天框中的表情
   const emojiButton = document.querySelector(".bx-wink-tongue");
@@ -257,6 +257,7 @@ function getCurrentTime() {
 
 function sendMessage(messageValue) {
   if (messageValue) {
+    console.log("send");
     const senduser = localStorage.getItem("userid");
     const receiveuser = document.querySelector(
       ".contact-message .message-header"
@@ -273,8 +274,9 @@ function sendMessage(messageValue) {
       },
       body: JSON.stringify(messagetoServer),
     })
-      .then((response) => response.json())
+      .then((res) => res.json())
       .then((data) => {
+        console.log(data);
         if (data.status === "success") {
           if (data.type === "text") createMessageBlock(messageValue, "send");
           else if (data.type === "image")
@@ -298,7 +300,10 @@ function receiveMessage() {
     },
     body: JSON.stringify({ senduser: senduser, receiveuser: receiveuser }),
   })
-    .then((response) => response.json())
+    // .then((response) => response.json())
+    .then((response) => {
+      return response.json();
+    })
     .then((data) => {
       if (data.status === "success") {
         if (data.type === "text") createMessageBlock(data.message.mail, "rece");
