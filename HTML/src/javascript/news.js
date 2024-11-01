@@ -62,7 +62,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // 生成联系人
   if (contactName) {
-    createContactBlock(contactName, "../../image/picture1.jpg", "Hello");
+    fetch("http://localhost:3000/get-userinfo", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ uname: contactName }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        createContactBlock(data.uname, data.txurl, data.remark);
+      });
     document.querySelector(".user-list").firstChild.classList.add("active");
     document.querySelector(".contact-message .message-header").textContent =
       contactName;
