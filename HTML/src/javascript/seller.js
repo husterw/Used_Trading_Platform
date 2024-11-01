@@ -34,7 +34,7 @@ async function loadsellerProducts() {
   productDiv.className = 'product';  
   productDiv.innerHTML = `  
   <img src="${product.imgurl}" alt="商品2" />  
-  <h3>${product.sname}</h3>  
+  <h3><button class="goods-name" onclick="gotodetail(${product.sid})">${product.sname}</button></h3>  
   <p>${product.remark}</p>  
   `;  
   productsContainer.appendChild(productDiv);  
@@ -52,7 +52,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
   loadsellerProducts();//初始化发布商品信息 
 });  
 
-
+//商品详情跳转
+function gotodetail(itemId) {  
+  window.location.href = `detail.html?id=${itemId}`;  
+ }  
 
 //页面跳转逻辑
 const gotoMessagePage = document.querySelector(".bx-comment-dots");

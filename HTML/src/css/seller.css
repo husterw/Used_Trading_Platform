@@ -40,6 +40,17 @@
     text-decoration: none;
   }
   
+  .goods-name{
+    border: none;
+    background-color: #fff;
+    font:600 18px ''
+  }
+
+  button:hover {
+    color: #9c88ff;
+  }
+
+
   .header .logo:hover {
     border: 2px solid #f0f0f0;
     background-color: #333;
