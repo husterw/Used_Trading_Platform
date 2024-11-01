@@ -30,12 +30,28 @@ document.addEventListener("DOMContentLoaded", function () {
           })
             .then((response) => response.json())
             .then((data) => {
-              if (data.status === "success")
-                createContactBlock(
-                  data.users.uname,
-                  data.users.txurl,
-                  data.users.remark
-                );
+              if (data.status === "success") {
+                // 判断是否已经存在该联系人
+                let isExist = false;
+                document
+                  .querySelectorAll(".user-block")
+                  .forEach((userBlock) => {
+                    if (
+                      uerBlock.querySelector(".user-name p").innerHTML ===
+                      contactName
+                    ) {
+                      userList.insertBefore(userBlock, userList.firstChild);
+                      isExist = true;
+                    }
+                  });
+                if (!isExist) {
+                  createContactBlock(
+                    data.users.uname,
+                    data.users.txurl,
+                    data.users.remark
+                  );
+                }
+              }
               document
                 .querySelector(".user-list")
                 .firstChild.classList.add("active");
@@ -231,18 +247,6 @@ function getQueryParams() {
 // 生成联系人
 function createContactBlock(userName, userImg, userInfo) {
   const userList = document.querySelector(".user-list");
-
-  // 判断是否已经存在该联系人
-  const userBlockList = document.querySelectorAll(".user-block");
-  userBlockList.forEach((userBlock) => {
-    if (
-      userBlock.querySelector(".user-name p").innerHTML === userName &&
-      userBlock.childElementCount > 1
-    ) {
-      userList.insertBefore(userBlock, userList.firstChild);
-      return;
-    }
-  });
 
   const userBlock = document.createElement("div");
   userBlock.classList.add("user-block");
