@@ -180,7 +180,7 @@ document
         } else if (data.status === "already") {
           showAlert("该邮箱已被注册");
         } else {
-          showAlert("注册失败");
+          showAlert("验证码错误");
         }
       })
       .catch((err) => {
