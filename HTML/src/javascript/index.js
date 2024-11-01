@@ -95,7 +95,7 @@ function observe(card) {
 
 async function loadImage() {
   const img = document.createElement("img");
-  const src = "../../image/products/" + imgCount + ".png";
+  const src = "../../image/" + imgCount + ".png";
   imgCount = imgCount == 4 ? 1 : imgCount + 1;
   return new Promise((resolve, reject) => {
     img.onload = () => resolve(img);
