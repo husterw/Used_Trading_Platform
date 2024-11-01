@@ -5,30 +5,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const params = getQueryParams();
   const contactName = params["contactName"];
 
-  // 生成联系人
-  if (contactName) {
-    fetch("http://localhost:3000/get-userinfo", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ uname: contactName }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.status === "success")
-          console.log("susss");
-          createContactBlock(
-            data.users.uname,
-            data.users.txurl,
-            data.users.remark
-          );
-      });
-    document.querySelector(".user-list").firstChild.classList.add("active");
-    document.querySelector(".contact-message .message-header").textContent =
-      contactName;
-  }
-
   // 初始化联系人列表
   fetch("http://localhost:3000/get-users", {
     method: "POST",
@@ -44,41 +20,67 @@ document.addEventListener("DOMContentLoaded", function () {
         data.users.forEach((user) => {
           createContactBlock(user.uname, user.txurl, user.remark);
         });
-        document.querySelectorAll(".user-block").forEach((element) => {
-          element.addEventListener("click", (event) => {
-            const chatPage = document.querySelector(
-              ".contact-message .message-header"
-            );
+        // 生成当前联系人
+        if (contactName) {
+          fetch("http://localhost:3000/get-userinfo", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ uname: contactName }),
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              if (data.status === "success")
+                createContactBlock(
+                  data.users.uname,
+                  data.users.txurl,
+                  data.users.remark
+                );
+              document
+                .querySelector(".user-list")
+                .firstChild.classList.add("active");
+              document.querySelector(
+                ".contact-message .message-header"
+              ).textContent = contactName;
+              // 为联系人添加监听器
+              document.querySelectorAll(".user-block").forEach((element) => {
+                element.addEventListener("click", (event) => {
+                  const chatPage = document.querySelector(
+                    ".contact-message .message-header"
+                  );
 
-            const deleteIconRect = element.getBoundingClientRect();
-            const deleteIconLeft = deleteIconRect.left;
-            const deleteIconTop = deleteIconRect.top + 25;
-            const deleteIconWidth = 30;
-            const deleteIconHeight = 30;
-            // 判断点击的是否为删除按钮
-            if (
-              event.clientX >= deleteIconLeft &&
-              event.clientX <= deleteIconLeft + deleteIconWidth &&
-              event.clientY >= deleteIconTop &&
-              event.clientY <= deleteIconTop + deleteIconHeight
-            ) {
-              event.stopPropagation();
-              if (element.classList.contains("active")) {
-                chatPage.innerHTML = "";
-              }
-              element.remove();
-              return;
-            }
-            // 切换选中状态
-            document.querySelectorAll(".user-block").forEach((el) => {
-              el.classList.remove("active");
+                  const deleteIconRect = element.getBoundingClientRect();
+                  const deleteIconLeft = deleteIconRect.left;
+                  const deleteIconTop = deleteIconRect.top + 25;
+                  const deleteIconWidth = 30;
+                  const deleteIconHeight = 30;
+                  // 判断点击的是否为删除按钮
+                  if (
+                    event.clientX >= deleteIconLeft &&
+                    event.clientX <= deleteIconLeft + deleteIconWidth &&
+                    event.clientY >= deleteIconTop &&
+                    event.clientY <= deleteIconTop + deleteIconHeight
+                  ) {
+                    event.stopPropagation();
+                    if (element.classList.contains("active")) {
+                      chatPage.innerHTML = "";
+                    }
+                    element.remove();
+                    return;
+                  }
+                  // 切换选中状态
+                  document.querySelectorAll(".user-block").forEach((el) => {
+                    el.classList.remove("active");
+                  });
+                  element.classList.add("active");
+                  this.querySelector(".message-show").innerHTML = "";
+                  chatPage.innerHTML =
+                    element.querySelector(".user-name p").innerHTML;
+                });
+              });
             });
-            element.classList.add("active");
-            this.querySelector(".message-show").innerHTML = "";
-            chatPage.innerHTML =
-              element.querySelector(".user-name p").innerHTML;
-          });
-        });
+        }
       }
     })
     .catch((err) => {
@@ -235,7 +237,8 @@ function createContactBlock(userName, userImg, userInfo) {
   const userBlockList = document.querySelectorAll(".user-block");
   userBlockList.forEach((userBlock) => {
     if (userBlock.querySelector(".user-name p").innerHTML === userName) {
-      userList.insertBefore(userBlock, userList.firstChild);
+      if(userBlock.childElementCount > 1)
+        userList.insertBefore(userBlock, userList.firstChild);
       return;
     }
   });

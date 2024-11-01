@@ -81,7 +81,6 @@ function delet(button, itemId) {
      return false;
   }else{
       const userId = localStorage.getItem('userid'); // 获取用户名 
-      console.log(userId);
       if (!userId) {  
       console.error('用户未登录，无法删除购物车商品');  
       return; // 如果没有用户名，退出函数 
