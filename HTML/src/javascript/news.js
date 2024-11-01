@@ -235,7 +235,10 @@ function createContactBlock(userName, userImg, userInfo) {
   // 判断是否已经存在该联系人
   const userBlockList = document.querySelectorAll(".user-block");
   userBlockList.forEach((userBlock) => {
-    if (userBlock.querySelector(".user-name p").innerHTML === userName) {
+    if (
+      userBlock.querySelector(".user-name p").innerHTML === userName &&
+      userBlock.childElementCount > 1
+    ) {
       userList.insertBefore(userBlock, userList.firstChild);
       return;
     }
