@@ -5,14 +5,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const params = getQueryParams();
   const contactName = params["contactName"];
 
-  // 生成联系人
-  if (contactName) {
-    createContactBlock(contactName, "../../image/picture1.jpg", "Hello");
-    document.querySelector(".user-list").firstChild.classList.add("active");
-    document.querySelector(".contact-message .message-header").textContent =
-      contactName;
-  }
-
   // 初始化联系人列表
   fetch("http://localhost:3000/get-users", {
     method: "POST",
@@ -68,6 +60,24 @@ document.addEventListener("DOMContentLoaded", function () {
     .catch((err) => {
       console.log(err);
     });
+
+  // 生成联系人
+  if (contactName) {
+    fetch("http://localhost:3000/get-userinfo", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ uname: contactName }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        createContactBlock(data.uname, data.txurl, data.remark);
+      });
+    document.querySelector(".user-list").firstChild.classList.add("active");
+    document.querySelector(".contact-message .message-header").textContent =
+      contactName;
+  }
 
   // 用户的搜索逻辑
   searchInput.addEventListener("input", function () {
