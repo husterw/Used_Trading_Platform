@@ -8,6 +8,7 @@ function loadUserInfo() {
     .then(response => response.json())  
     .then(userInfo => {  
       // 更新用户信息显示  
+      document.getElementById("seller-avatar").src = userInfo.txurl; 
       document.getElementById("userName").innerText = userInfo.uname;  
       document.getElementById("userPhone").innerText = userInfo.phone; 
       document.getElementById("userAddress").innerText = userInfo.dormitory; 

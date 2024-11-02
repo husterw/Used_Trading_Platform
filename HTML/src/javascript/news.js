@@ -16,12 +16,10 @@ document.addEventListener("DOMContentLoaded", function () {
     .then((response) => response.json())
     .then((data) => {
       if (data.status === "success") {
-        console.log("ok");
         data.users.forEach((user) => {
           createContactBlock(user.uname, user.txurl, user.remark);
         });
         // 生成当前联系人
-        if (contactName) {
           fetch("http://localhost:3000/get-userinfo", {
             method: "POST",
             headers: {
@@ -31,19 +29,31 @@ document.addEventListener("DOMContentLoaded", function () {
           })
             .then((response) => response.json())
             .then((data) => {
-              if (data.status === "success")
-                createContactBlock(
-                  data.users.uname,
-                  data.users.txurl,
-                  data.users.remark
-                );
-              document
-                .querySelector(".user-list")
-                .firstChild.classList.add("active");
-              document.querySelector(
-                ".contact-message .message-header"
-              ).textContent = contactName;
+              if (data.status === "success") {
+                // 判断是否已经存在该联系人
+                let isExist = false;
+                const userList = document.querySelector(".user-list");
+                document.querySelectorAll(".user-block").forEach((userBlock) => {
+                    if (
+                      userBlock.querySelector(".user-name p").innerHTML ===
+                      contactName
+                    ) {
+                      userList.insertBefore(userBlock, userList.firstChild);
+                      isExist = true;
+                    }
+                  });
+                if (!isExist) {
+                  createContactBlock(
+                    data.users.uname,
+                    data.users.txurl,
+                    data.users.remark
+                  );
+                  document.querySelector(".user-list").firstChild.classList.add("active");
+                  document.querySelector(".contact-message .message-header").textContent = contactName;
+                }
+              }
               // 为联系人添加监听器
+              console.log("ok");
               document.querySelectorAll(".user-block").forEach((element) => {
                 element.addEventListener("click", (event) => {
                   const chatPage = document.querySelector(
@@ -80,7 +90,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
               });
             });
-        }
       }
     })
     .catch((err) => {
@@ -232,16 +241,6 @@ function getQueryParams() {
 // 生成联系人
 function createContactBlock(userName, userImg, userInfo) {
   const userList = document.querySelector(".user-list");
-
-  // 判断是否已经存在该联系人
-  const userBlockList = document.querySelectorAll(".user-block");
-  userBlockList.forEach((userBlock) => {
-    if (userBlock.querySelector(".user-name p").innerHTML === userName) {
-      if(userBlock.childElementCount > 1)
-        userList.insertBefore(userBlock, userList.firstChild);
-      return;
-    }
-  });
 
   const userBlock = document.createElement("div");
   userBlock.classList.add("user-block");

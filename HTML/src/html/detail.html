@@ -13,7 +13,7 @@
   <body>
     <div class="header">
       <div class="logo">
-        <a href="login.html">华易</a>
+        <a href="index.html">华易</a>
       </div>
       <div class="user">
         <img src="../../image/chat-bg.png" class="user-img" alt="" />
@@ -26,21 +26,32 @@
     <div class="max-container">
       <div class="detail">
         <div class="product" id="product-image">
-          <img src="../../image/OIP-C.jpg" />
+          <img src="../../image/1.png" />
         </div>
-        <div class="user-list">
-          <div class="seller">
-            <img src="../../image/OIP-C.jpg" />
+        
+        <div class="cont">
+          <div class="user-list">
+            <div class="seller">
+              <img id="seller-avatar" src="../../image/OIP-C.jpg" />
+            </div>
+
+            <button class="go-to-seller" id="go-to-seller-button" onclick="gotoseller(1)">
+              卖家家家家家
+            </button>
           </div>
-          <div class="h5">卖家家家家家</div>
-          <button class="go-to-seller" onclick="gotoseller(1)">进入商家主页</button>
-        </div>
-        <h2 id="product-title" class="name">虚构产品名称</h2>  
-        <p id="product-price" class="price"><span>价格: ¥199.00</span></p>  
-        <p id="product-description" class="context">它采用高品质材料，耐用且实用。这是一个非常好的产品，能够满足您的需求。它采用高品质材料，耐用且实用。这是一个非常好的产品，能够满足您的需求。它采用高品质材料，耐用且实用。这是一个非常好的产品，能够满足您的需求。它采用高品质材料，耐用且实用。这是一个非常好的产品，能够满足您的需求。它采用高品质材料，耐用且实用。这是一个非常好的产品，能够满足您的需求。它采用高品质材料，耐用且实用。这是一个非常好的产品，能够满足您的需求。它采用高品质材料，耐用且实用。这是一个非常好的产品，能够满足您的需求。它采用高品质材料，耐用且实用。</p>  
-        <div class="buttons">
-          <button class="com_with_seller" onclick="deleteRow(this)">联系商家</button>
-          <button class="add-to-cart" onclick="addshop(this,5)">添加到购物车</button>
+          <h2 id="product-title" class="name">虚构产品名称</h2>
+          <p id="product-price" class="price">价格: ¥199.00</p>
+          <p id="product-description" class="context">
+            耐用且实用。
+          </p>
+          <div class="buttons">
+            <button class="com_with_seller" onclick="deleteRow(this)">
+              联系商家
+            </button>
+            <button class="add-to-cart" onclick="addshop(this,5)">
+              添加到购物车
+            </button>
+          </div>
         </div>
       </div>
     </div>

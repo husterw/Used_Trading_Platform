@@ -56,6 +56,10 @@ function fetchProductDetails() {
     addToCartButton.onclick = () => addshop(addToCartButton, itemId);
     const goToSellerButton = document.querySelector('.go-to-seller');
     goToSellerButton.onclick = () => gotoseller(data.uid);
+    // 卖家头像  
+    document.getElementById("seller-avatar").src = data.txurl;  
+    // 卖家详情跳转按钮  
+    document.getElementById("go-to-seller-button").innerText = data.uname;  
     })   
     .catch(error => console.error('获取商品详情时出错:', error));  
     } else {  
@@ -69,3 +73,26 @@ window.onload = fetchProductDetails;
 function gotoseller(userId) {  
   window.location.href = `seller.html?uid=${userId}`;  
  }  
+
+
+ 
+//页面跳转逻辑
+const gotoMessagePage = document.querySelector(".bx-comment-dots");
+gotoMessagePage.addEventListener("click", function () {
+  window.location.href = "news.html";
+});
+
+const gotoLoginPage = document.querySelector(".bx-log-out");
+gotoLoginPage.addEventListener("click", function () {
+  window.location.href = "login.html";
+});
+
+const gotoUserPage = document.querySelector(".user-img");
+gotoUserPage.addEventListener("click", function () {
+  window.location.href = "user.html";
+});
+
+const gotoShopCart = document.querySelector(".bx-cart");
+gotoShopCart.addEventListener("click", function () {
+  window.location.href = "shopcart.html";
+});
