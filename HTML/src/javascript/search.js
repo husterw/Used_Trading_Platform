@@ -85,9 +85,7 @@ function createRecommend(product) {
     recommendDiv.className = 'product-card';
     recommendDiv.classList.add("show");
     recommendDiv.innerHTML = `
-            <div class="product-img">
             <img src=${"../../image/" + product.imgCount + ".png"} alt="" />
-            </div>
             <h3>${product.title}</h3>
             <p>${product.description}</p>
         `;
