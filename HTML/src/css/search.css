@@ -114,7 +114,7 @@ body {
 
 .container {
     /* width: min(800px, 100%); */
-    min-height: 500px;
+    /* min-height: 500px; */
     width: calc(100vw - 600px);
     /* max-width: 1000px;
     min-width: 800px; */
@@ -141,13 +141,6 @@ body {
     overflow: hidden;
 
     /* animation: scratch 0.7s forwards; */
-}
-
-.result-count {
-    margin-bottom: 10px;
-    color: rgb(0, 0, 0);
-    font: 900 30px "楷体";
-    text-decoration: none;
 }
 
 .product-card {
@@ -198,8 +191,51 @@ body {
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     /* 自动调整列数 */
     gap: 40px;
+    /* min-height: 100vh; */
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: flex-start;
+}
+
+.recommend {
+    margin-top: 20px;
+    /* background-color: #333; */
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    display: grid;
+    /* 使用 Grid 布局 */
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    /* 自动调整列数 */
+    gap: 40px;
     min-height: 100vh;
     flex-direction: column;
     flex-wrap: wrap;
     align-content: flex-start;
+}
+
+.recommend-head {
+    text-align: center;
+    font: 700 30px "Arial";
+    margin-bottom: 20px;
+}
+
+@keyframes slideIn {
+    from {
+        filter: opacity(0);
+        transform: translateY(100px);
+    }
+
+    to {
+        filter: opacity(1);
+        transform: translateY(0);
+    }
+}
+
+.product-card.show {
+    animation-name: slideIn;
+    animation-duration: 0.5s;
+    animation-fill-mode: both;
+    animation-timing-function: ease-in-out;
 }
