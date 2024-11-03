@@ -18,6 +18,13 @@ gotoShopCart.addEventListener("click", function () {
   window.location.href = "shopcart.html";
 });
 
+document.querySelectorAll(".category-list li").forEach((type, index) => {
+  type.addEventListener("click", function () {
+    index = index + 1;
+    window.location.href = "searchtype.html?type=" + index;
+  });
+});
+
 // DOM
 const masonry = document.querySelector(".masonry");
 const divider1 = masonry.querySelector(".divider1");

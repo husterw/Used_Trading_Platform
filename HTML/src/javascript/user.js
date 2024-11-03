@@ -31,7 +31,9 @@ async function loadUserProducts() {
   const productDiv = document.createElement('div');  
   productDiv.className = 'product';  
   productDiv.innerHTML = `  
-  <img src="${product.imgurl}" alt="商品2" />  
+  <div class="product-img">
+  <img src="${product.imgurl}" alt="商品2" /> 
+  </div> 
   <h3>${product.sname}</h3>  
   <p>${product.remark}</p>  
   `;  

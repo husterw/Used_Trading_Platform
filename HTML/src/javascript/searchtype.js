@@ -72,7 +72,9 @@ function createProduct(product) {
     const productDiv = document.createElement('div');
     productDiv.className = 'product-card';
     productDiv.innerHTML = `
+            <div class="product-img">
             <img src="${product.img}" alt="" />
+            </div>
             <h3>${product.title}</h3>
             <p>${product.description}</p>
         `;
