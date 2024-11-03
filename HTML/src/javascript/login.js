@@ -67,7 +67,9 @@ document.querySelectorAll("form").forEach((form) => {
         .then((res) => res.json())
         .then((data) => {
           if (data.status === "success") {
-            window.location.href = "../html/news.html";
+            localStorage.setItem('userid', data.userid);
+            //localStorage.setItem('username', );
+            window.location.href = "../html/index.html";
           } else {
             showAlert(data.message);
           }
@@ -178,7 +180,7 @@ document
         } else if (data.status === "already") {
           showAlert("该邮箱已被注册");
         } else {
-          showAlert("注册失败");
+          showAlert("验证码错误");
         }
       })
       .catch((err) => {
