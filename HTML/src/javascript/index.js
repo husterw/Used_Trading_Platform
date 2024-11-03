@@ -58,12 +58,15 @@ async function createCard(i) {
   const img = await loadImage();
 
   if (img) {
-    card.append(img);
+    const imgContainer = document.createElement("div");
+    imgContainer.classList.add("card-con");
+    imgContainer.append(img);
     const title = document.createElement("div");
     const idturn = i % 4;
     title.classList.add("product-name");
     title.textContent = productNames[idturn];
-    card.append(title);
+    imgContainer.append(title);
+    card.append(imgContainer);
     document.body.appendChild(card);
     const cardIndex = cardCount;
     const colIndex = (cardIndex + 1) % 4;
