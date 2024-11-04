@@ -156,12 +156,25 @@ body {
     overflow: hidden;
 }
 
+
+.product-card.show {
+    animation-name: slideIn;
+    animation-duration: 0.5s;
+    animation-fill-mode: both;
+    animation-timing-function: ease-in-out;
+}
+
 .product-card img {
     width: 80%;
     height: 70%;
     margin: 10% 10% 0 10%;
     border-radius: 10px;
     object-fit: cover;
+    transition: transform 0.2s ease-in-out;
+}
+
+.product-card img:hover {
+    transform: scale(1.1);
 }
 
 .product-card h3 {
@@ -227,11 +240,4 @@ body {
         filter: opacity(1);
         transform: translateY(0);
     }
-}
-
-.product-card.show {
-    animation-name: slideIn;
-    animation-duration: 0.5s;
-    animation-fill-mode: both;
-    animation-timing-function: ease-in-out;
 }

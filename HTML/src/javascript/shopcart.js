@@ -39,10 +39,10 @@ function loadCartItems() {
           productDiv.className = "tbody";  
           productDiv.innerHTML = `  
               <div class="goods-img"><img src="${product.imgurl}" alt=""></div>  
-              <div><button class="goods-name" onclick="gotodetail(${product.sid})">${product.sname}</button></div>
-              <div>${product.price}元</div>  
+              <div><button class="goods-name" onclick="gotodetail(${product.sid})"><p>${product.sname}</p></button></div>
+              <div><h1>${product.price}元</h1></div>  
               <div><a href="news.html?contactName=${product.uname}">${product.uname}</a></div>  
-              <div><button onclick="delet(this,${product.sid})">移出购物车</button></div>  
+              <div><button onclick="delet(this,${product.sid})"><h2>移出购物车</h2></button></div>  
           `;  
           goodsListDiv.appendChild(productDiv);  
       });  
