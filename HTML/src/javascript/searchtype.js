@@ -13,6 +13,11 @@ gotoUserPage.addEventListener("click", function () {
     window.location.href = "user.html";
 });
 
+const gotoShopCart = document.querySelector(".bx-cart");
+gotoShopCart.addEventListener("click", function () {
+  window.location.href = "shopcart.html";
+});
+
 const urlParams = new URLSearchParams(window.location.search);
 const searchTerm = urlParams.get('type');
 
