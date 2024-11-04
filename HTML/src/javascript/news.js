@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
             if (data.status === "success") {
               // 判断是否已经存在该联系人
               let isExist = false;
-              const userList = document.querySelectorAll(".user-list");
+              const userList = document.querySelector(".user-list");
               document.querySelectorAll(".user-block").forEach((userBlock) => {
                 if (
                   userBlock.querySelector(".user-name p").innerHTML ===
@@ -42,6 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
                   isExist = true;
                 }
               });
+              if (isExist) console.log("is exist");
               if (!isExist) {
                 createContactBlock(
                   data.users.uname,

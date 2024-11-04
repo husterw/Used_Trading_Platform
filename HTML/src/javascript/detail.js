@@ -56,6 +56,8 @@ function fetchProductDetails() {
     addToCartButton.onclick = () => addshop(addToCartButton, itemId);
     const goToSellerButton = document.querySelector('.go-to-seller');
     goToSellerButton.onclick = () => gotoseller(data.uid);
+    const conToSellerButton = document.querySelector('.com_with_seller');
+    conToSellerButton.onclick = () => conseller(data.uname);
     // 卖家头像  
     document.getElementById("seller-avatar").src = data.txurl;  
     // 卖家详情跳转按钮  
@@ -74,6 +76,10 @@ function gotoseller(userId) {
   window.location.href = `seller.html?uid=${userId}`;  
  }  
 
+ //跳转联系商家
+ function conseller(uname) {  
+  window.location.href = `news.html?contactName=${uname}`;
+ }  
 
  
 //页面跳转逻辑
