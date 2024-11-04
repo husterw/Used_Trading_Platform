@@ -91,16 +91,15 @@ a:hover {
   color: crimson;
 }
 
-
 button {
   border: none;
   background-color: #fff;
 }
 
-.tbody .goods-name{
+.tbody .goods-name {
   border: none;
   background-color: #fff;
-  font:600 18px ''
+  font: 600 18px "";
 }
 
 button:hover {
@@ -216,16 +215,15 @@ button:hover {
   left: -10.5%;
 }
 
-.head-img{
+.head-img {
   position: relative;
   left: -40%;
 }
 
-.head-price{
+.head-price {
   position: relative;
   left: -8%;
 }
-
 
 .alert-box {
   position: absolute;
