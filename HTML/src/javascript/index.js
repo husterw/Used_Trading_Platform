@@ -29,7 +29,6 @@ document.querySelectorAll(".category-list li").forEach((type, index) => {
 const masonry = document.querySelector(".masonry");
 const divider1 = masonry.querySelector(".divider1");
 const productNames = ["shu uemura", "asdghwqer", "zxcvuiot", "aobuitnna"];
-
 // variables
 let pageSize = 12;
 let cardCount = 0;
@@ -80,7 +79,7 @@ async function createCard(i) {
     card.style.visibility = "";
     card.classList.add("show");
     card.addEventListener("click", function () {
-      window.location.href = `detail.html?id=${idturn + 1}`;
+      window.location.href = `detail.html?id=${idturn+1}`;
     });
     cardCount++;
 
@@ -106,7 +105,7 @@ function observe(card) {
 async function loadImage() {
   const img = document.createElement("img");
   const src = "../../image/" + imgCount + ".png";
-  imgCount = imgCount == 4 ? 1 : imgCount + 1;
+  imgCount = imgCount == 175 ? 1 : imgCount + 1;
   return new Promise((resolve, reject) => {
     img.onload = () => resolve(img);
     img.onerror = reject;
@@ -123,7 +122,7 @@ function resetMasonryHeight() {
   colHeights = [0, 0, 0, 0];
   document.querySelectorAll(".card").forEach((card, index) => {
     const cardHeight = card.clientHeight;
-    const colIndex = (index + 1) % 4;
+    const colIndex = (index + 1) % 175;
     colHeights[colIndex] += cardHeight;
   });
   setMasonryHeight();

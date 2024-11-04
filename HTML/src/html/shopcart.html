@@ -12,7 +12,7 @@
 <body>
     <div class="header">
         <div class="logo">
-            <a href="login.html">华易</a>
+            <a href="index.html">华易</a>
         </div>
         <div class="user">
             <img src="../../image/chat-bg.png" alt="" class="user-img">
@@ -21,7 +21,6 @@
             <i class='bx bx-log-out'></i>
         </div>
     </div>
-
     <div class="container">
         <div class="header-title">
             <h2 style="font-size: 30px;" id="title-name">我的购物车</h2>
@@ -31,12 +30,14 @@
             <div class="td">
                 <span class="head-name">物品名称</span>
                 <span class="head-owner">联系商家</span>
+                <span class="head-img">物品图片</span>
+                <span class="head-price">物品价格</span>
             </div>
 
             <div class="goods-list" id="scrollable-div">
                 <div class="tbody">
                     <div class="goods-img"><img src="../../image/wlq.gif" alt=""></div>
-                    <div class="goods-name">电路理论</div>
+                    <div><button class="goods-name" onclick="gotodetail(7)">电路理论</button></div>
                     <div>50.0元</div>
                     <div>
                         <a href="http:bilibili.com">商家</a>

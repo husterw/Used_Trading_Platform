@@ -229,11 +229,22 @@ body {
   width: 150px;
   box-shadow: 10px 20px 50px rgba(0, 0, 0, 0.2);
   height: 250px;
+
+  overflow: hidden;
 }
 
-.products .product img {
+.products .product .product-img {
   width: 100%;
-  max-height: 70%;
+  height: 70%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.products .product .product-img img {
+  max-width : 100%;
+  max-height: 100%;
   border-radius: 50px;
 }
 
@@ -243,6 +254,8 @@ body {
 }
 
 .products .product p {
+  padding-left: 10px;
+  padding-right: 10px;
   font-size: 14px;
   color: #888;
 }

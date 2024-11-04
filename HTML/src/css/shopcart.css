@@ -96,6 +96,12 @@ button {
   background-color: #fff;
 }
 
+.tbody .goods-name {
+  border: none;
+  background-color: #fff;
+  font: 600 18px "";
+}
+
 button:hover {
   color: #9c88ff;
 }
@@ -198,11 +204,23 @@ button:hover {
 }
 
 .head-owner {
-  margin-left: 380px;
+  position: relative;
+  left: 20.5%;
 }
 
 .head-name {
-  margin-left: -15px;
+  position: relative;
+  left: -10.5%;
+}
+
+.head-img {
+  position: relative;
+  left: -40%;
+}
+
+.head-price {
+  position: relative;
+  left: -8%;
 }
 
 .alert-box {

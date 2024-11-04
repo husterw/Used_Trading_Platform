@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
             if (data.status === "success") {
               // 判断是否已经存在该联系人
               let isExist = false;
-              const userList = document.querySelectorAll(".user-list");
+              const userList = document.querySelector(".user-list");
               document.querySelectorAll(".user-block").forEach((userBlock) => {
                 if (
                   userBlock.querySelector(".user-name p").innerHTML ===
@@ -42,6 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
                   isExist = true;
                 }
               });
+              if (isExist) console.log("is exist");
               if (!isExist) {
                 createContactBlock(
                   data.users.uname,
@@ -314,8 +315,9 @@ function sendMessage(messageValue) {
       },
       body: JSON.stringify(messagetoServer),
     })
-      .then((response) => response.json())
+      .then((res) => res.json())
       .then((data) => {
+        console.log(data);
         if (data.status === "success") {
           if (data.type === "text") createMessageBlock(messageValue, "send");
           else if (data.type === "image")
@@ -337,16 +339,19 @@ function receiveMessage() {
   const messagetoServer = {
     senduser: senduser,
     receiveuser: receiveuser,
-    message: messageValue,
+    message: "",
   };
-  fetch("http://localhost:3000/send-messages", {
+  fetch("http://localhost:3000/receive-messages", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(messagetoServer),
   })
-    .then((response) => response.json())
+    // .then((response) => response.json())
+    .then((response) => {
+      return response.json();
+    })
     .then((data) => {
       if (data.status === "success") {
         if (data.type === "text") createMessageBlock(data.message.mail, "rece");
