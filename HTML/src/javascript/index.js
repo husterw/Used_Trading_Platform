@@ -29,7 +29,6 @@ document.querySelectorAll(".category-list li").forEach((type, index) => {
 const masonry = document.querySelector(".masonry");
 const divider1 = masonry.querySelector(".divider1");
 const productNames = ["shu uemura", "asdghwqer", "zxcvuiot", "aobuitnna"];
-
 // variables
 let pageSize = 12;
 let cardCount = 0;
@@ -58,12 +57,15 @@ async function createCard(i) {
   const img = await loadImage();
 
   if (img) {
-    card.append(img);
+    const imgContainer = document.createElement("div");
+    imgContainer.classList.add("card-con");
+    imgContainer.append(img);
     const title = document.createElement("div");
     const idturn = i % 4;
     title.classList.add("product-name");
     title.textContent = productNames[idturn];
-    card.append(title);
+    imgContainer.append(title);
+    card.append(imgContainer);
     document.body.appendChild(card);
     const cardIndex = cardCount;
     const colIndex = (cardIndex + 1) % 4;
@@ -103,7 +105,7 @@ function observe(card) {
 async function loadImage() {
   const img = document.createElement("img");
   const src = "../../image/" + imgCount + ".png";
-  imgCount = imgCount == 4 ? 1 : imgCount + 1;
+  imgCount = imgCount == 175 ? 1 : imgCount + 1;
   return new Promise((resolve, reject) => {
     img.onload = () => resolve(img);
     img.onerror = reject;
@@ -120,7 +122,7 @@ function resetMasonryHeight() {
   colHeights = [0, 0, 0, 0];
   document.querySelectorAll(".card").forEach((card, index) => {
     const cardHeight = card.clientHeight;
-    const colIndex = (index + 1) % 4;
+    const colIndex = (index + 1) % 175;
     colHeights[colIndex] += cardHeight;
   });
   setMasonryHeight();
