@@ -34,39 +34,41 @@ function getProductId() {
 }
 
 // 从服务器获取商品详情 
-function fetchProductDetails() {
-  const itemId = getProductId();
-
-  if (itemId) {
-    fetch(`http://localhost:3000/products/${itemId}`)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('网络响应有误');
-        }
-        return response.json();
-      })
-      .then(data => {
-        // 填充商品详细信息到页面 
-        document.getElementById('product-title').innerText = data.sname;
-        document.getElementById('product-price').innerHTML = `价格: <span>¥${data.price.toFixed(2)}</span>`;
-        document.getElementById('product-description').innerText = data.remark;
-        //document.getElementById('product-image').src = data.imgurl; 
-        document.querySelector('#product-image img').src = data.imgurl;
-        const addToCartButton = document.querySelector('.add-to-cart');
-        addToCartButton.onclick = () => addshop(addToCartButton, itemId);
-        const goToSellerButton = document.querySelector('.go-to-seller');
-        goToSellerButton.onclick = () => gotoseller(data.uid);
-        // 卖家头像  
-        document.getElementById("seller-avatar").src = data.txurl;
-        // 卖家详情跳转按钮  
-        document.getElementById("go-to-seller-button").innerText = data.uname;
-      })
-      .catch(error => console.error('获取商品详情时出错:', error));
-  } else {
-    console.error('未提供商品ID');
-  }
-}
-
+function fetchProductDetails() {  
+    const itemId = getProductId();  
+   
+    if (itemId) {  
+    fetch(`http://localhost:3000/products/${itemId}`)  
+    .then(response => {  
+    if (!response.ok) {  
+    throw new Error('网络响应有误');  
+    }  
+    return response.json();  
+    })  
+    .then(data => {  
+    // 填充商品详细信息到页面 
+    document.getElementById('product-title').innerText = data.sname;  
+    document.getElementById('product-price').innerHTML = `价格: <span>¥${data.price.toFixed(2)}</span>`;  
+    document.getElementById('product-description').innerText = data.remark;  
+    //document.getElementById('product-image').src = data.imgurl; 
+    document.querySelector('#product-image img').src = data.imgurl;
+    const addToCartButton = document.querySelector('.add-to-cart');
+    addToCartButton.onclick = () => addshop(addToCartButton, itemId);
+    const goToSellerButton = document.querySelector('.go-to-seller');
+    goToSellerButton.onclick = () => gotoseller(data.uid);
+    const conToSellerButton = document.querySelector('.com_with_seller');
+    conToSellerButton.onclick = () => conseller(data.uname);
+    // 卖家头像  
+    document.getElementById("seller-avatar").src = data.txurl;  
+    // 卖家详情跳转按钮  
+    document.getElementById("go-to-seller-button").innerText = data.uname;  
+    })   
+    .catch(error => console.error('获取商品详情时出错:', error));  
+    } else {  
+    console.error('未提供商品ID');  
+    }  
+}  
+   
 window.onload = fetchProductDetails;
 
 //跳转商家主页
@@ -75,6 +77,10 @@ function gotoseller(userId) {
 }
 
 
+ //跳转联系商家
+ function conseller(uname) {  
+  window.location.href = `news.html?contactName=${uname}`;
+ }  
 
 //页面跳转逻辑
 const gotoMessagePage = document.querySelector(".bx-comment-dots");
