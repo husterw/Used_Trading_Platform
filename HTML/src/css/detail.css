@@ -307,8 +307,8 @@ body {
   top: 27%;
 }
 
-.bxs-error-circle {
-  color: red;
+.bxs-check-circle {
+  color: green;
   margin-right: 10px;
 }
 
