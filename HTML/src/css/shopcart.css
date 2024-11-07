@@ -123,7 +123,8 @@ button {
   font: 600 16px "";
   color: white;
 
-  transition: transform 0.2s ease-in-out, color 0.2s ease-in-out, background-color 0.2s ease-in-out;
+  transition: transform 0.2s ease-in-out, color 0.2s ease-in-out,
+    background-color 0.2s ease-in-out;
 }
 
 button:hover {
@@ -192,7 +193,6 @@ button:hover {
   background-color: #f0f0f0;
 }
 
-
 .goods-img {
   width: 200px;
   height: 140px;
@@ -238,6 +238,22 @@ button:hover {
   font-size: 20px;
   font-weight: 600;
   color: #333;
+}
+.tbody a::after {
+  content: "";
+  display: block;
+  width: 0%;
+  height: 6px;
+  background-color: #34d6ff;
+  border-radius: 5px;
+
+  position: absolute;
+  left: 60%;
+
+  transition: width 0.2s ease;
+}
+.tbody a:hover::after {
+  width: 15.3%;
 }
 
 .goods-name p {

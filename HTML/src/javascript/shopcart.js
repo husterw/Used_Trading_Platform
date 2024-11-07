@@ -18,23 +18,23 @@ window.onload = function () {
 };
 
 function loadCartItems() {
-  const userId = localStorage.getItem('userid');
+  const userId = localStorage.getItem("userid");
   if (!userId) {
-    console.error('用户未登录，无法加载购物车');
+    console.error("用户未登录，无法加载购物车");
     return; // 如果没有用户名，退出函数
   }
-  fetch('http://localhost:3000/shopcart', {
-    method: 'POST',
+  fetch("http://localhost:3000/shopcart", {
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json'
+      "Content-Type": "application/json",
     },
-    body: JSON.stringify({ userId }) // 用户ID，如果查询是针对特定用户的  
+    body: JSON.stringify({ userId }), // 用户ID，如果查询是针对特定用户的
   })
-    .then(response => response.json())
-    .then(products => {
+    .then((response) => response.json())
+    .then((products) => {
       const goodsListDiv = document.getElementById("scrollable-div");
-      goodsListDiv.innerHTML = ""; // 清空已有内容  
-      products.forEach(product => {
+      goodsListDiv.innerHTML = ""; // 清空已有内容
+      products.forEach((product) => {
         const productDiv = document.createElement("div");
         productDiv.className = "tbody";
         productDiv.innerHTML = `  
@@ -47,7 +47,7 @@ function loadCartItems() {
         goodsListDiv.appendChild(productDiv);
       });
     })
-    .catch(error => console.error('Error fetching cart:', error));
+    .catch((error) => console.error("Error fetching cart:", error));
 }
 
 function showAlert(message) {
@@ -80,33 +80,30 @@ function delet(button, itemId) {
   if (ans === false) {
     return false;
   } else {
-    const userId = localStorage.getItem('userid'); // 获取用户名 
+    const userId = localStorage.getItem("userid"); // 获取用户名
     if (!userId) {
-      console.error('用户未登录，无法删除购物车商品');
-      return; // 如果没有用户名，退出函数 
+      console.error("用户未登录，无法删除购物车商品");
+      return; // 如果没有用户名，退出函数
     }
-    // 发送DELETE请求到服务器  
+    // 发送DELETE请求到服务器
     fetch(`http://localhost:3000/shopcart/${itemId}`, {
-      method: 'DELETE',
+      method: "DELETE",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify({ userId })
+      body: JSON.stringify({ userId }),
     })
-      .then(response => {
+      .then((response) => {
         if (response.ok) {
-          row.remove(); // 删除行  
+          row.remove(); // 删除行
           showAlert("删除成功");
         } else {
-          console.error('Failed to delete item:', response.statusText);
+          console.error("Failed to delete item:", response.statusText);
         }
       })
-      .catch(error => console.error('Error deleting item:', error));
+      .catch((error) => console.error("Error deleting item:", error));
   }
-
 }
-
-
 
 // 跳转页面逻辑
 const gotoMessagePage = document.querySelector(".bx-comment-dots");
@@ -132,19 +129,4 @@ gotoShopCart.addEventListener("click", function () {
 //跳转商品详情
 function gotodetail(itemId) {
   window.location.href = `detail.html?id=${itemId}`;
-}
-
-
-function test() {
-  if (!window.localStorage) {
-    alert("浏览器不支持localstorage");
-  } else {
-    //主逻辑业务
-    console.log('Hello world!');
-  }
-  //localStorage.setItem('username', 'Alice');
-  const username = localStorage.getItem('userid');
-  console.log(username);  // 输出：Alice
-  alert("极度愤怒");
-
 }
