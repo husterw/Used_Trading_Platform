@@ -128,8 +128,10 @@ body {
 }
 
 .detail .product img {
+  /* width: auto; */
+  /* height: 50%; */
+  max-height: 50%;
   width: auto;
-  height: 50%;
   object-fit: contain;
   text-align: center;
   margin-left: 150%;

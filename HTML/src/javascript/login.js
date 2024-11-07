@@ -67,8 +67,7 @@ document.querySelectorAll("form").forEach((form) => {
         .then((res) => res.json())
         .then((data) => {
           if (data.status === "success") {
-            localStorage.setItem('userid', data.userid);
-            //localStorage.setItem('username', );
+            localStorage.setItem("userid", data.userid);
             window.location.href = "../html/index.html";
           } else {
             showAlert(data.message);
@@ -101,6 +100,7 @@ document.addEventListener("DOMContentLoaded", function () {
   getVerCodeLinks.forEach((link) => {
     link.addEventListener("click", function (e) {
       e.preventDefault();
+      showVerCode("123456");
 
       const email1 = document.querySelectorAll("input[name='email']")[0]?.value;
       const email2 = document.querySelectorAll("input[name='email']")[1]?.value;
@@ -121,7 +121,8 @@ document.addEventListener("DOMContentLoaded", function () {
         .then((res) => res.json())
         .then((data) => {
           if (data.status === "success") {
-            alert("yanzhengma: " + data.message);
+            // alert("yanzhengma: " + data.message);
+            showVerCode(data.message);
           } else {
             showAlert("验证码发送失败");
           }
@@ -209,4 +210,37 @@ function showAlert(message) {
       document.body.removeChild(alertBox);
     }, 300);
   }, 2000);
+}
+
+function showVerCode(message) {
+  const VerCodeBox = document.createElement("div");
+  const CloseBtn = document.createElement("div");
+  const VerCode = document.createElement("div");
+  VerCodeBox.classList.add("vercode-box");
+  CloseBtn.classList.add("close-box");
+  VerCode.classList.add("vercode-message");
+  CloseBtn.innerHTML = `<i class='bx bx-x'></i>`;
+  VerCode.innerText = "验证码已发送: " + message;
+
+  CloseBtn.addEventListener("click", () => {
+    VerCodeBox.classList.add("close");
+    setTimeout(() => {
+      document.body.removeChild(VerCodeBox);
+    }, 200);
+  });
+  CloseBtn.addEventListener("mouseover", () => {
+    CloseBtn.children[0].classList.add("bx-tada");
+  });
+  CloseBtn.addEventListener("mouseout", () => {
+    CloseBtn.children[0].classList.remove("bx-tada");
+  });
+
+  VerCodeBox.appendChild(CloseBtn);
+  VerCodeBox.appendChild(VerCode);
+
+  document.body.appendChild(VerCodeBox);
+
+  setTimeout(() => {
+    VerCodeBox.classList.add("active");
+  }, 100);
 }
