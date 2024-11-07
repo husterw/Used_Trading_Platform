@@ -122,45 +122,31 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 900px;
-  width: 100%;
-  grid-area: product;
 }
 
 .detail .product .image-box {
   position: relative;
-  top: -15%;
-  left: 15%;
-  border: 7px solid #988f8f;
+  top: 0%;
+  left: 12%;
+  width: 100%;
   border-radius: 10px;
 
   transition: transform 0.3s ease-in-out;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .detail .product .image-box:hover {
   transform: scale(1.1);
 }
 
 .image-box img {
-  max-width: 100%;
-  max-height: 100%;
-}
-
-/* .detail .product img {
-  max-height: 50%;
-  width: auto;
-  object-fit: contain;
-  text-align: center;
-  margin-left: 150%;
-  margin-top: -100%;
+  max-height: 550px;
+  max-width: 450px;
   border: 7px solid #988f8f;
   border-radius: 10px;
-
-  transition: transform 0.3s ease-in-out;
 }
-
-.detail .product img:hover {
-  transform: scale(1.1);
-} */
 
 .cont {
   display: grid;
