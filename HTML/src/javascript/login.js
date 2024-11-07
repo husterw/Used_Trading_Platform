@@ -222,6 +222,7 @@ function showVerCode(message) {
   CloseBtn.innerHTML = `<i class='bx bx-x'></i>`;
   VerCode.innerText = "验证码已发送: " + message;
 
+  
   CloseBtn.addEventListener("click", () => {
     VerCodeBox.classList.add("close");
     setTimeout(() => {
