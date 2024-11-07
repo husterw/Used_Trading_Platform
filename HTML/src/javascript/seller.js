@@ -12,6 +12,7 @@ function getsellername() {
 function fetchseller() {
   const userId = getsellerid();
   const username = getsellername();
+  console.log(userId);
   console.log(username);
   if(username==null){
     fetch(`http://localhost:3000/user/info/${userId}`)
