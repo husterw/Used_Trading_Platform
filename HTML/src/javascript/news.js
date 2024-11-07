@@ -156,7 +156,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // 每隔3s检测是否发送了信息，如果有则回应
-  setInterval(receiveMessage, 3000);
+  setInterval(receiveMessage, 1000);
 
   // 生成聊天框中的表情
   const emojiButton = document.querySelector(".bx-wink-tongue");
@@ -254,6 +254,9 @@ function createContactBlock(userName, userImg, userInfo) {
   const Img = document.createElement("img");
   Img.src = userImg;
   Img.alt = "";
+  Img.addEventListener("click", () => {
+    window.location.href="seller.html?uname=" + userName;
+  })
   userImgBlock.appendChild(Img);
 
   const userDetails = document.createElement("div");
