@@ -157,7 +157,7 @@ body {
     "price"
     "detail"
     "button";
-  grid-template-rows: 10% 5% 5% 40% 10%;
+  grid-template-rows: 15% 10% 5% 50% 10%;
   margin-top: 50px;
   grid-gap: 10px;
 }
