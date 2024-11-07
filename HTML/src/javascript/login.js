@@ -100,7 +100,6 @@ document.addEventListener("DOMContentLoaded", function () {
   getVerCodeLinks.forEach((link) => {
     link.addEventListener("click", function (e) {
       e.preventDefault();
-      showVerCode("123456");
 
       const email1 = document.querySelectorAll("input[name='email']")[0]?.value;
       const email2 = document.querySelectorAll("input[name='email']")[1]?.value;
@@ -222,7 +221,6 @@ function showVerCode(message) {
   CloseBtn.innerHTML = `<i class='bx bx-x'></i>`;
   VerCode.innerText = "验证码已发送: " + message;
 
-  
   CloseBtn.addEventListener("click", () => {
     VerCodeBox.classList.add("close");
     setTimeout(() => {
