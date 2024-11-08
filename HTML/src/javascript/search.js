@@ -222,6 +222,7 @@ fetch("http://localhost:3000/search", {
   .then((products) => {
     if (products.status === "success") {
       // console.log("auc");
+	  document.querySelector(".search input").value = searchTerm;
       products.goods.forEach((product) => {
         // if (searchTerm) {
         // if(product.sname.toLowerCase().includes(searchTerm.toLowerCase())){
@@ -296,7 +297,7 @@ window.addEventListener("scroll", function () {
 document
   .querySelector(".search-input")
   .addEventListener("keydown", function (event) {
-    if (event.key === "Enter") {
+    if (event.key === "Tab") {
       event.preventDefault();
       const value = event.target.value;
       window.location.href = "search.html?value=" + value;
