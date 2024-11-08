@@ -1,38 +1,38 @@
 //添加购物车：
-function addshop(button, productId) {  
-    const userId = localStorage.getItem('userid'); 
-    if (!userId) {
-      console.error('用户未登录，无法添加商品到购物车');
-      return; // 如果没有用户 ID，退出函数
-    }
-    fetch('http://localhost:3000/add-to-cart', {  
-      method: 'POST',  
-      headers: {  
-      'Content-Type': 'application/json'  
-      },  
-      body: JSON.stringify({ userId, productId })  
-    })  
-    .then(response => response.json())  
-    .then(data => {  
-    if (data.success) {  
-      alert('商品添加成功！');  
-    } else {  
-      alert('添加失败：' + data.message);  
-    }  
-    })  
-    .catch(error => {  
-      console.error('Error:', error);  
-      alert('发生错误，请重试。');  
-    });  
-    }
+function addshop(button, productId) {
+  const userId = localStorage.getItem('userid');
+  if (!userId) {
+    console.error('用户未登录，无法添加商品到购物车');
+    return; // 如果没有用户 ID，退出函数
+  }
+  fetch('http://localhost:3000/add-to-cart', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ userId, productId })
+  })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        showAlert('商品添加成功！');
+      } else {
+        alert('添加失败：' + data.message);
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      alert('发生错误，请重试。');
+    });
+}
 
 
 //商品详情跳转
-function getProductId() {  
-    const urlParams = new URLSearchParams(window.location.search);  
-    return urlParams.get('id');  
-}  
-   
+function getProductId() {
+  const urlParams = new URLSearchParams(window.location.search);
+  return urlParams.get('id');
+}
+
 // 从服务器获取商品详情 
 function fetchProductDetails() {  
     const itemId = getProductId();  
@@ -72,16 +72,16 @@ function fetchProductDetails() {
 window.onload = fetchProductDetails;
 
 //跳转商家主页
-function gotoseller(userId) {  
-  window.location.href = `seller.html?uid=${userId}`;  
- }  
+function gotoseller(userId) {
+  window.location.href = `seller.html?uid=${userId}`;
+}
+
 
  //跳转联系商家
  function conseller(uname) {  
   window.location.href = `news.html?contactName=${uname}`;
  }  
 
- 
 //页面跳转逻辑
 const gotoMessagePage = document.querySelector(".bx-comment-dots");
 gotoMessagePage.addEventListener("click", function () {
@@ -102,3 +102,26 @@ const gotoShopCart = document.querySelector(".bx-cart");
 gotoShopCart.addEventListener("click", function () {
   window.location.href = "shopcart.html";
 });
+
+function showAlert(message) {
+  const alertBox = document.createElement("div");
+  alertBox.classList.add("alert-box");
+  alertBox.innerHTML = `
+    <i class='bx bxs-check-circle bx-tada' ></i>
+    <span class="alert-message">${message}</span>
+  `;
+  document.body.appendChild(alertBox);
+
+  // show alert
+  setTimeout(() => {
+    alertBox.classList.add("active");
+  }, 100);
+
+  // hide alert after 3s
+  setTimeout(() => {
+    alertBox.classList.remove("active");
+    setTimeout(() => {
+      document.body.removeChild(alertBox);
+    }, 300);
+  }, 2000);
+}

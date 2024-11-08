@@ -1,60 +1,61 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8" />
-    <title>华中科技大学二手交易平台</title>
-    <link rel="stylesheet" href="..\css\detail.css" />
-    <link
-      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
-      rel="stylesheet"
-    />
-  </head>
 
-  <body>
-    <div class="header">
-      <div class="logo">
-        <a href="index.html">华易</a>
-      </div>
-      <div class="user">
-        <img src="../../image/chat-bg.png" class="user-img" alt="" />
-        <i class="bx bx-cart"></i>
-        <i class="bx bx-comment-dots"></i>
-        <i class="bx bx-log-out"></i>
-      </div>
+<head>
+  <meta charset="UTF-8" />
+  <title>华中科技大学二手交易平台</title>
+  <link rel="stylesheet" href="..\css\detail.css" />
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+</head>
+
+<body>
+  <div class="header">
+    <div class="logo">
+      <a href="index.html">华易</a>
     </div>
+    <div class="user">
+      <img src="../../image/chat-bg.png" class="user-img" alt="" />
+      <i class="bx bx-cart"></i>
+      <i class="bx bx-comment-dots"></i>
+      <i class="bx bx-log-out"></i>
+    </div>
+  </div>
 
-    <div class="max-container">
-      <div class="detail">
-        <div class="product" id="product-image">
-          <img src="../../image/1.png" />
-        </div>
-        
-        <div class="cont">
-          <div class="user-list">
-            <div class="seller">
-              <img id="seller-avatar" src="../../image/OIP-C.jpg" />
-            </div>
-
-            <button class="go-to-seller" id="go-to-seller-button" onclick="gotoseller(1)">
-              卖家家家家家
-            </button>
-          </div>
-          <h2 id="product-title" class="name">虚构产品名称</h2>
-          <p id="product-price" class="price">价格: ¥199.00</p>
-          <p id="product-description" class="context">
-            耐用且实用。
-          </p>
-          <div class="buttons">
-            <button class="com_with_seller" onclick="conseller(uname)">
-              联系商家
-            </button>
-            <button class="add-to-cart" onclick="addshop(this,5)">
-              添加到购物车
-            </button>
-          </div>
+  <div class="max-container">
+    <div class="detail">
+      <div class="product" id="product-image">
+        <div class="image-box">
+          <img src="" />
         </div>
       </div>
+
+      <div class="cont">
+        <div class="user-list">
+          <div class="seller">
+            <img id="seller-avatar" src="../../image/OIP-C.jpg" />
+          </div>
+
+          <button class="go-to-seller" id="go-to-seller-button" onclick="gotoseller(1)">
+            卖家家家家家
+          </button>
+        </div>
+        <h2 id="product-title" class="name">虚构产品名称</h2>
+        <p id="product-price" class="price">价格: ¥199.00</p>
+        <p id="product-description" class="context">
+          耐用且实用。
+        </p>
+        <div class="buttons">
+          <button class="com_with_seller" onclick="conseller(uname)">
+            联系商家
+          </button>
+          <button class="add-to-cart" onclick="addshop(this,5)">
+            添加到购物车
+          </button>
+        </div>
+      </div>
     </div>
-    <script src="../javascript/detail.js"></script>
-  </body>
+  </div>
+  <script src="../javascript/detail.js"></script>
+</body>
+
 </html>

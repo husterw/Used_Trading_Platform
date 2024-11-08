@@ -74,9 +74,32 @@ body {
   margin-left: 5px;
   transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
 }
+
 .header .user i:hover {
   transform: scale(1.2);
   color: #34d6ff;
+}
+
+.header-title {
+  position: relative;
+  width: 100%;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url(../../image/chat-bg.png);
+  background-size: cover;
+  /* background-position: center; */
+  /* margin-bottom: 15px; */
+  padding: 10px;
+  overflow: hidden;
+}
+
+.header-title h2 {
+  font: 600 50px "";
+  color: white;
+  padding: 10px;
+  border-radius: 30%;
 }
 
 #title-name {
@@ -93,7 +116,21 @@ a:hover {
 
 button {
   border: none;
-  background-color: #fff;
+  text-align: center;
+  padding: 8px;
+  border-radius: 5px;
+  background-color: #333;
+  font: 600 16px "";
+  color: white;
+
+  transition: transform 0.2s ease-in-out, color 0.2s ease-in-out,
+    background-color 0.2s ease-in-out;
+}
+
+button:hover {
+  background-color: #dbdbdb;
+  color: black;
+  transform: scale(1.1);
 }
 
 .tbody .goods-name {
@@ -102,9 +139,9 @@ button {
   font: 600 18px "";
 }
 
-button:hover {
+/* button:hover {
   color: #9c88ff;
-}
+} */
 
 .container {
   position: relative;
@@ -119,17 +156,19 @@ button:hover {
   width: calc(100vw - 400px);
   height: calc(100vh - 200px);
 
-  background-color: #fff;
+  background-color: #ffffffb9;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
   border-radius: 10px;
   overflow: hidden;
 
   animation: scratch 0.7s forwards;
 }
+
 @keyframes scratch {
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -158,6 +197,9 @@ button:hover {
   width: 200px;
   height: 140px;
   padding: 10px 0;
+
+  display: flex;
+  align-items: center;
 }
 
 .goods-img img {
@@ -173,7 +215,7 @@ button:hover {
 }
 
 .goods-list .tbody div {
-  display: inline-block;
+  /* display: inline-block; */
   text-align: center;
   width: 200px;
   margin-left: 10px;
@@ -184,12 +226,48 @@ button:hover {
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: #fff;
+  box-shadow: 0 3px 10px rgba(112, 132, 156, 0.5);
+  border-radius: 10px;
+  margin: 2%;
+  flex-direction: row;
+  flex-wrap: nowrap;
 }
 
-.goods-name {
-  width: 220px;
+.tbody a {
+  font-size: 20px;
+  font-weight: 600;
+  color: #333;
+}
+.tbody a::after {
+  content: "";
+  display: block;
+  width: 0%;
+  height: 6px;
+  background-color: #34d6ff;
+  border-radius: 5px;
 
-  background: none;
+  position: absolute;
+  left: 60%;
+
+  transition: width 0.2s ease;
+}
+.tbody a:hover::after {
+  width: 15.3%;
+}
+
+.goods-name p {
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+}
+
+.tbody h1 {
+  text-align: center;
+  font-size: 25px;
+  font-weight: bold;
+  color: #ec0000;
 }
 
 .goods-list {
@@ -201,11 +279,11 @@ button:hover {
 }
 
 #scrollable-div {
-  height: 600px;
+  height: 660px;
   overflow-y: scroll;
 }
 
-.head-owner {
+/* .head-owner {
   position: relative;
   left: 20.5%;
 }
@@ -223,7 +301,7 @@ button:hover {
 .head-price {
   position: relative;
   left: -8%;
-}
+} */
 
 .alert-box {
   position: absolute;
