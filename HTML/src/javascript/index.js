@@ -25,6 +25,16 @@ document.querySelectorAll(".category-list li").forEach((type, index) => {
   });
 });
 
+document.addEventListener("DOMContentLoaded", function () {
+  const userId = localStorage.getItem("userid");
+  fetch(`http://localhost:3000/user/txinfo/${userId}`)
+    .then((res) => res.json())
+    .then((data) => {
+      document.getElementById("seller-avatar").src = data.txurl;
+    });
+});
+
+
 // DOM
 const masonry = document.querySelector(".masonry");
 const divider1 = masonry.querySelector(".divider1");
@@ -317,17 +327,3 @@ document
     }
   });
 
-document.addEventListener("DOMContentLoaded", function () {
-  const userid = localStorage.getItem("userid");
-  fetch("http://localhost:3000/user", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ userid: userid }),
-  })
-    .then((res) => res.json())
-    .then((data) => {
-      document.querySelector("header .user img").src = data.avatar;
-    });
-});

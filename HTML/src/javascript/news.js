@@ -367,3 +367,17 @@ function receiveMessage() {
       console.log(error);
     });
 }
+
+
+
+//头像
+document.addEventListener("DOMContentLoaded", function () {
+  const userId = localStorage.getItem("userid");
+  fetch(`http://localhost:3000/user/txinfo/${userId}`)
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+      //document.querySelector("header .user img").src = data.txurl;
+      document.getElementById("seller-avatar").src = data.txurl;
+    });
+});
