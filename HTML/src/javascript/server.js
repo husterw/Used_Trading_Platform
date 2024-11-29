@@ -1,6 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-
+const bodyParser = require("body-parser");  
 const app = express();
 const port = 3000;
 
@@ -23,7 +23,7 @@ con.connect((err) => {
 });  
 // 使用 cors 中间件来解决跨域问题
 app.use(cors());
-
+app.use(bodyParser.json()); 
 // 使用 express 中间件来解析 application/x-www-form-urlencoded 格式的数据
 app.use(express.urlencoded({ extended: true }));
 
@@ -31,6 +31,13 @@ app.get("/", (req, res) => {
   res.send("Welcome to my server!");
 });
 let verifyCode_cmp = "";
+// 存储验证码和生成时间  
+let verifyCodeData = {  
+  code: '',  
+  timestamp: 0   
+};  
+const CAPTCHA_TIMEOUT = 60000; // 设置验证码有效时间为1分钟
+
 app.post("/submit", (req, res) => {
   // 解析后的表单数据在 req.body 中
   const way=req.body.type;
@@ -131,7 +138,10 @@ app.post("/get-ver-code", (req, res) => {
       Math.floor(Math.random() * characters.length)
     );
   }
-  verifyCode_cmp=verifyCode;
+  // 更新验证码和当前时间戳  
+  verifyCodeData.code = verifyCode;  
+  verifyCodeData.timestamp = Date.now();
+  //verifyCode_cmp=verifyCode;
   if (email) {
     res.json({
       status: "success",
@@ -152,13 +162,32 @@ app.post("/register", (req, res)=>{
   const verCode=req.body.verCode;
   const account=email.substring(0,10);
 
+   // 检查验证码是否过期  
+   const currentTime = Date.now();  
+   if (currentTime - verifyCodeData.timestamp > CAPTCHA_TIMEOUT) {  
+     res.json({  
+       status: "timeout",  
+       message: "验证码已过期，请重新获取验证码。",  
+     });  
+     return;  
+   }  
+
+   /*
   if(verCode!==verifyCode_cmp){
     res.json({
       status: "fail",
       memssage:"verifyCode is wrong",
     });
     return ;
-  }
+  }*/
+  // 验证码校验  
+  if (verCode !== verifyCodeData.code) {  
+    res.json({  
+      status: "fail",  
+      message: "验证码错误。",  
+    });  
+    return;  
+  }  
 
   let sql='select * from account_infor where uid=?';
   con.query(sql,account,function(err,result){
