@@ -179,7 +179,10 @@ document
           location.reload();
         } else if (data.status === "already") {
           showAlert("该邮箱已被注册");
-        } else {
+        } else if(data.status==="timeout"){
+          showAlert("验证码超时，请重新获取验证码");
+        }
+        else {
           showAlert("验证码错误");
         }
       })
