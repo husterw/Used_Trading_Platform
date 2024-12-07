@@ -38,51 +38,76 @@ let verifyCodeData = {
 };  
 const CAPTCHA_TIMEOUT = 60000; // 设置验证码有效时间为1分钟
 
+//导入bcrypt，实现对用户密码的加密
+const bcrypt = require('bcrypt');  
+const saltRounds = 10; // 盐的轮数  
+
 app.post("/submit", (req, res) => {
   // 解析后的表单数据在 req.body 中
   const way=req.body.type;
  
-  //通过账号密码登录
-  if(way==='password'){
-    const userId = req.body.userId;
-    const password = req.body.password;
-    let sql='select * from account_infor where uid=?';
-    let s=userId;
-    con.query(sql,[s],function(err,result){
-    if(err){
-      console.error(err);
-      return;
+// 通过账号密码登录  
+if (way === 'password') {  
+  const userId = req.body.userId;  
+  const password = req.body.password; // 用户输入的明文密码  
+  let sql = 'SELECT * FROM account_infor WHERE uid = ?';  
+  
+  con.query(sql, [userId], function(err, result) {  
+    if (err) {  
+      console.error(err);  
+      res.json({  
+        status: "error",  
+        message: "数据库查询错误",  
+      });  
+      return;  
     }         
-    if(result.length){
-      if(result[0].State===0){
-          res.json({
-          status: "fail",
-          message: "账户被封禁",
-        });
-      }
-      else if(password===result[0].Password){
-          //localStorage.setItem('username', userId);
-          res.json({
-          status: "success",
-          message: "Login successful",
-          userid:userId,
-        });
-      }
-      else{
-          res.json({
-          status: "fail",
-          message: "密码错误！",
-         });
-      }
-     }
-     else{
-        res.json({
-         status: "fail",
-          message: "账号不存在！",
-        });
-     }
-    })
-  }
+    
+    if (result.length) {  
+      // 检查账户状态  
+      if (result[0].State === 0) {  
+        res.json({  
+          status: "fail",  
+          message: "账户被封禁",  
+        });  
+      } else {  
+        // 使用 bcrypt.compare 验证密码  
+        console.log(result);
+        console.log(result[0].password);
+        bcrypt.compare(password, result[0].password, function(err, match) {  
+          if (err) {  
+            console.error(err);  
+            res.json({  
+              status: "error",  
+              message: "密码比对错误",  
+            });  
+            return;  
+          }  
+          
+          if (match) {  
+            // 密码匹配，登录成功  
+            res.json({  
+              status: "success",  
+              message: "登录成功",  
+              userid: userId,  
+            });  
+          } else {  
+            // 密码不匹配  
+            res.json({  
+              status: "fail",  
+              message: "密码错误！",  
+            });  
+          }  
+        });  
+      }  
+    } else {  
+      // 账号不存在  
+      res.json({  
+        status: "fail",  
+        message: "账号不存在！",  
+      });  
+    }  
+  });  
+}  
   //通过邮箱登录
   else{
     const verC=req.body.verCode;
@@ -155,31 +180,23 @@ app.post("/get-ver-code", (req, res) => {
 });
 
 
-//注册
-app.post("/register", (req, res)=>{
-  const email=req.body.email;
-  const password=req.body.password;
-  const verCode=req.body.verCode;
-  const account=email.substring(0,10);
+//注册，通过bcrypt库对密码加密
+app.post("/register", (req, res) => {  
+  const email = req.body.email;  
+  const password = req.body.password;  
+  const verCode = req.body.verCode;  
+  const account = email.substring(0, 10);  
 
-   // 检查验证码是否过期  
-   const currentTime = Date.now();  
-   if (currentTime - verifyCodeData.timestamp > CAPTCHA_TIMEOUT) {  
-     res.json({  
-       status: "timeout",  
-       message: "验证码已过期，请重新获取验证码。",  
-     });  
-     return;  
-   }  
+  // 检查验证码是否过期  
+  const currentTime = Date.now();  
+  if (currentTime - verifyCodeData.timestamp > CAPTCHA_TIMEOUT) {  
+    res.json({  
+      status: "timeout",  
+      message: "验证码已过期，请重新获取验证码。",  
+    });  
+    return;  
+  }  
 
-   /*
-  if(verCode!==verifyCode_cmp){
-    res.json({
-      status: "fail",
-      memssage:"verifyCode is wrong",
-    });
-    return ;
-  }*/
   // 验证码校验  
   if (verCode !== verifyCodeData.code) {  
     res.json({  
@@ -189,40 +206,52 @@ app.post("/register", (req, res)=>{
     return;  
   }  
 
-  let sql='select * from account_infor where uid=?';
-  con.query(sql,account,function(err,result){
-    if(err){
-        console.error(err);
-        return;
+  let sql = 'SELECT * FROM account_infor WHERE uid = ?';  
+  con.query(sql, account, function(err, result) {  
+    if (err) {  
+      console.error(err);  
+      return;  
     }         
-    if(result.length){
-      res.json({
-        status: "already",
-        memssage:"账号已经存在",
-      });
-      return ;
-    }
-  })
-  sql="Insert into account_infor(uid,Password) Values(?, ?)";
-  sqlstring="Insert into user_infor(Uid) Values(?)";
-  con.query(sqlstring,[account], function (err, result) {
-    if(err){
-        console.log('[INSERT ERROR] - ', err.message);
-        return;
-    }             
-  })
-  con.query(sql,[account,password],function(err,result){
-    if(err){
-        console.error(err);
-        return;
-    }         
-    res.json({
-      status: "success",
-       memssage:"注册成功",
-     });
-    return ;
-  })
-})
+    if (result.length) {  
+      res.json({  
+        status: "already",  
+        message: "账号已经存在",  
+      });  
+      return;  
+    }  
+
+    // 对密码进行加密  
+    bcrypt.hash(password, saltRounds, function(err, hash) {  
+      if (err) {  
+        console.error('[HASH ERROR] - ', err.message);  
+        return;  
+      }  
+
+      // 插入用户信息  
+      sql = "INSERT INTO account_infor(uid, Password) VALUES(?, ?)";  
+      const sqlstring = "INSERT INTO user_infor(Uid) VALUES(?)";  
+
+      con.query(sqlstring, [account], function(err, result) {  
+        if (err) {  
+          console.log('[INSERT ERROR] - ', err.message);  
+          return;  
+        }             
+      });  
+
+      con.query(sql, [account, hash], function(err, result) {  
+        if (err) {  
+          console.error(err);  
+          return;  
+        }         
+        res.json({  
+          status: "success",  
+          message: "注册成功",  
+        });  
+        return;  
+      });  
+    });  
+  });  
+});  
 
 
 app.use(express.json());  
@@ -685,6 +714,7 @@ app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
 });
 
+//添加
 
 
 
