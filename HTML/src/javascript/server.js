@@ -588,7 +588,7 @@ app.post('/send-messages',(req, res)=>{
 app.post('/receive-messages',(req, res)=>{
   const sendname=req.body.senduser;//别人发送给我的信息，name
   const recid=req.body.receiveuser;//我的id
-  let sql='select * from message where Uid_from=(SELECT Uid FROM User_Infor WHERE Uname = ?) and Uid_to=?';
+  let sql='select * from message where Uid_from in (SELECT Uid FROM User_Infor WHERE Uname = ?) and Uid_to=?';
   con.query(sql,[sendname,recid],function(err,result){
     if(err){
         console.error(err);
